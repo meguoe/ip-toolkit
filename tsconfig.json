@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "ES2022",
+    "module": "commonjs",
+    "declaration": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "lib": ["dom", "ES2022"],
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*.ts",
+    ".eslintrc.js",
+    "jest.config.js"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "src/tests/*.test.ts",
+  ]
+}
+
+// {
+//   "compilerOptions": {
+//     "paths": {
+//       "@/*": [
+//         "src/*"
+//       ]
+//     },
+//     "types": ["jest", "node"],
+//   },
+//   "include": [
+//     "src/**/*.ts",
+//     ".eslintrc.js",
+//     "jest.config.js"
+//   ],
+//   "exclude": [
+//     "dist",
+//     "node_modules",
+//     "src/**/*.test.ts",
+//   ]
+// }
