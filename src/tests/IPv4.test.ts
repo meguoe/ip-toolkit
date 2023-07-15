@@ -58,7 +58,7 @@ describe('IPv4方法策略', () => {
 
   describe('ipRange 类测试', () => {
     it('fromLong 函数测试', () => {
-      const range = ipRange.fromLong(2886729729, 2886729828);
+      expect(() => ipRange.fromLong(2886729729, 2886729828)).not.toThrow();
       try {
         ipRange.fromLong(-1, 42949672)
       } catch (error) {
@@ -77,7 +77,7 @@ describe('IPv4方法策略', () => {
     });
 
     it('fromString 函数测试', () => {
-      const range = ipRange.fromString('192.168.1.1', '192.168.1.100');
+      expect(() => ipRange.fromString('192.168.1.1', '192.168.1.100')).not.toThrow();
       try {
         ipRange.fromString('192.168.1.-1', '192.168.1.100');
       } catch (error) {

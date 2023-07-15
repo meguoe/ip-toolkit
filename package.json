@@ -1,16 +1,28 @@
 {
   "name": "ip-toolkit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A utility library for manipulating IPv4 and IPv6 addresses in Node.js.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "jest:test": "jest",
+    "prepare": "husky install",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint --fix",
+    "lint:lint-staged": "lint-staged",
     "publish": "npm run build && npm publish",
     "publish:rimraf": "npm run rimraf && npm run build && npm publish"
   },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meguoe/ip-toolkit"
+  },
+  "homepage": "https://github.com/meguoe/ip-toolkit",
   "keywords": [
     "ip",
     "ipv4",
@@ -31,6 +43,8 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-typescript": "^7.22.5",
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
     "@jest/globals": "^29.6.1",
     "@types/jest": "^29.5.3",
     "@types/mocha": "^10.0.1",
@@ -40,6 +54,7 @@
     "eslint": "^8.44.0",
     "eslint-plugin-import": "^2.27.5",
     "jest": "^29.6.1",
+    "lint-staged": "^13.2.3",
     "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
   }
