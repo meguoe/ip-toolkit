@@ -173,7 +173,7 @@ export function parseCIDR( cidr: string ): CidrInfo | false {
 
 
 /**
- * IPv4 地址范围类, 用于表示一个起始和结束IP地址定义的范围, 有效值为 0 到 4294967295
+ * IPv4 address range class for representing a range defined by a start and end IP address. Valid values are from 0 to 4294967295.
  */
 
 export class ipRange {
