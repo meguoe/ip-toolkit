@@ -1,1 +1,1 @@
-export * as IPv4 from "./ipv4";
+export * as IPv4 from './ipv4';
