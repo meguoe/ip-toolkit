@@ -7,11 +7,12 @@
     "build": "tsc",
     "jest:test": "jest",
     "prepare": "husky install",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint --fix",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src",
     "lint:lint-staged": "lint-staged",
-    "publish": "npm run build && npm publish",
-    "publish:rimraf": "npm run rimraf && npm run build && npm publish"
+    "publish": " npm publish",
+    "publish:build": "npm run build && npm publish",
+    "publish:rimraf": "npm run publish:build && npm publish"
   },
   "lint-staged": {
     "*.{js,ts}": [
