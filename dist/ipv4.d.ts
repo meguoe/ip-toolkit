@@ -1,11 +1,9 @@
-interface isValidIPOptions {
-    strict?: boolean;
-}
+import type { CidrInfo } from './types';
 /**
- * 将 IPv4 的字符串地址转换成长整型数字
+ * Convert IPv4 address from string to long integer
  *
- * @param ip - 一个标准格式的 IPv4 地址
- * @returns 返回 IPv4 地址转换后的数字，如果 IP 无效，则为false。
+ * @param ip - A standard IPv4 address string
+ * @returns Converted integer number of the IPv4 address, false if invalid
  *
  * @example
  * ```
@@ -15,78 +13,101 @@ interface isValidIPOptions {
  */
 export declare function ip2long(ip: string): number | boolean;
 /**
- * 将长整型数字转化为 IPv4 的字符串地址
+ * Convert integer IPv4 address to string
  *
- * @param ip - 一个长整型的 IPv4 地址
- * @returns 返回字符串的 IPv4 地址， 或者在失败时返回 false。
+ * @param ip - An integer IPv4 address
+ * @returns String IPv4 address, or false on failure
  *
  * @example
  * ```
- * long2ip(3232235521) // 192.168.0.1
+ * long2ip(3232235521) // '192.168.0.1'
  * long2ip(-1) // false
  * ```
  */
 export declare function long2ip(ip: number): string | false;
 /**
- * 检查指定的字符串是否为有效的 IPv4 地址
+ * Check if the given string is a valid IPv4 address
  *
- * @param value - 要校验的地址字符串
- * @param options - 支持开启严格校验模式, 禁止多位数中以 0 开头，默认为不开启。
- * @returns 校验通过返回 true, 否则返回 false
+ * @param value - The address string to validate
+ * @param options - Enable strict mode to disallow leading 0s, false by default
+ * @returns true if valid, otherwise false
  *
  * @example
  * ```
- * isValidIP('192.168.1.99'); // true
- * isValidIP('192.168.01.99', {strict: true}); // false
+ * isValidIP('192.168.1.99') // true
+ * isValidIP('192.168.01.99', {strict: true}) // false
  * ```
  */
-export declare function isValidIP(value: string, options?: isValidIPOptions): boolean;
+export declare function isValidIP(value: string, options?: {
+    strict?: boolean;
+}): boolean;
 /**
- * 判断两个 IPv4 网络地址是属于同一个子网
+ * Check if two IPv4 network addresses are in the same subnet
  *
- * @param ip1 - 第一个要比较的 IPv4 网络地址
- * @param ip2 - 第二个要比较的 IPv4 网络地址
- * @param mask - 子网掩码
- * @returns 在同一子网返回 true, 否则返回 false
+ * @param ip1 - The first IPv4 network address to compare
+ * @param ip2 - The second IPv4 network address to compare
+ * @param mask - The subnet mask
+ * @returns true if in the same subnet, otherwise false
  *
  * @example
  * ```
- * isSameSubnet('192.168.1.10', '192.168.1.100', '255.255.255.0'); // true
- * isSameSubnet('192.168.1.10', '192.168.2.100', '255.255.255.0'); // true
+ * isSameSubnet('192.168.1.10', '192.168.1.100', '255.255.255.0') // true
+ * isSameSubnet('192.168.1.10', '192.168.2.100', '255.255.255.0') // false
  * ```
  */
 export declare function isSameSubnet(ip1: string, ip2: string, mask: string): boolean;
 /**
- * 根据子网掩码长度计算子网掩码地址
+ * Calculate subnet mask address from prefix length
  *
- * @param length - 子网掩码长度, 取值范围 0 到 32
- * @returns 返回子网掩码地址, 如果长度无效，则为false
+ * @param length - Subnet mask length, from 0 to 32
+ * @returns The subnet mask address, or false if invalid length
  *
  * @example
  * ```
- * toSubnetMask(0)  // 0.0.0.0
- * toSubnetMask(8)  // 255.0.0.0
- * toSubnetMask(16) // 255.255.0.0
- * toSubnetMask(24) // 255.255.255.0
+ * toSubnetMask(0)  // '0.0.0.0'
+ * toSubnetMask(8)  // '255.0.0.0'
+ * toSubnetMask(16) // '255.255.0.0'
+ * toSubnetMask(24) // '255.255.255.0'
  * ```
  */
 export declare function toSubnetMask(length: number): string | false;
 /**
- * IPv4 地址范围类, 用于表示一个起始和结束IP地址定义的范围
+ * Parse IPv4 CIDR address to get address range info
  *
- * @param start - 起始 IPv4 地址, 有效值为 0 到 4294967295
- * @param end - 结束 IPv4 地址, 有效值为 0 到 4294967295
+ * networkAddress and broadcastAddress are valid when mask < 31
+ *
+ * @param ip - A standard format CIDR address
+ * @returns The parsed CIDR address info, or false if invalid
+ *
+ * @example
+ * ```
+ * parseCIDR('192.168.0.1/24')
+ * // {
+ * //   ipCount: 256,
+ * //   usableCount: 254,
+ * //   cidrMask: 24,
+ * //   subnetMask: '255.255.255.0',
+ * //   firstHost: '192.168.0.1',
+ * //   lastHost: '192.168.0.254',
+ * //   networkAddress: '192.168.1.0',
+ * //   broadcastAddress: '192.168.1.255'
+ * // }
+ * ```
+ */
+export declare function parseCIDR(cidr: string): CidrInfo | false;
+/**
+ * IPv4 地址范围类, 用于表示一个起始和结束IP地址定义的范围, 有效值为 0 到 4294967295
  */
 export declare class ipRange {
     #private;
     constructor(start: number, end: number);
     /**
-     * 通过起止 IPv4 长整数创建 ipRange 实例
+     * Create ipRange instance from start and end IPv4 integers
      *
-     * @param start - 起始IP的整数形式
-     * @param end - 结束IP的整数形式
-     * @returns 创建的ipRange实例
-     * @throws 如果起止 IPv4 地址不合法, 会抛出错误
+     * @param start - Start IP integer
+     * @param end - End IP integer
+     * @returns The created ipRange instance
+     * @throws Error if start or end IP is invalid
      *
      * @example
      * ```
@@ -95,12 +116,12 @@ export declare class ipRange {
      */
     static fromLong(start: number, end: number): ipRange;
     /**
-     * 通过起止 IPv4 字符串创建 ipRange 实例
+     * Create ipRange instance from start and end IPv4 strings
      *
-     * @param startIp - 一个长整型的 IPv4 开始地址
-     * @param endIp - 一个长整型的 IPv4 结束地址
-     * @returns ipRange 实例
-     * @throws 如果起止 IPv4 地址不合法, 会抛出错误
+     * @param startIp - Start IP string
+     * @param endIp - End IP string
+     * @returns The created ipRange instance
+     * @throws Error if start or end IP is invalid
      *
      * @example
      * ```
@@ -109,9 +130,9 @@ export declare class ipRange {
      */
     static fromString(start: string, end: string): ipRange;
     /**
-     * 获取当前范围的起始和结束IP(整数形式)
+     * Get start and end IP integers of current range
      *
-     * @returns 起始IP和结束IP的整数数组
+     * @returns Array of start and end IP integers
      *
      * @example
      * ```
@@ -121,9 +142,9 @@ export declare class ipRange {
      */
     ip2long(): number[];
     /**
-     * 获取当前范围的起始和结束IP(字符串形式)
+     * Get start and end IP strings of current range
      *
-     * @returns 起始IP和结束IP的字符串数组
+     * @returns Array of start and end IP strings
      *
      * @example
      * ```
@@ -133,9 +154,9 @@ export declare class ipRange {
      */
     long2ip(): string[];
     /**
-     * 获取当前范围的 IPv4 地址数量
+     * Get the number of IPs in current range
      *
-     * @returns IPv4 地址数量
+     * @returns The IP count
      *
      * @example
      * ```
@@ -145,10 +166,10 @@ export declare class ipRange {
      */
     getSize(): number;
     /**
-     * 判断一个 IPv4 地址是否在当前范围内
+     * Check if an IPv4 address is within current range
      *
-     * @param ip - 一个标准格式的 IPv4 地址
-     * @returns 如果在返回true, 否则false
+     * @param ip - An IPv4 address string
+     * @returns true if within range, otherwise false
      *
      * @example
      * ```
@@ -159,4 +180,3 @@ export declare class ipRange {
      */
     hasIp(ip: string): boolean;
 }
-export {};
