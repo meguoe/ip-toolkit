@@ -29,14 +29,15 @@ module.exports = {
     'object-shorthand': ['error', 'always', { ignoreConstructors: false, avoidQuotes: true }],
     'no-constant-condition': ['error', { checkLoops: false }],
 
+    semi: ['error', 'always'],
     quotes: ['error', 'single'],
     'quote-props': ['error', 'as-needed'],
-    'space-in-parens': ['error', 'always'],
+
+    'space-in-parens': ['error', 'never'],
     'space-before-blocks': 'error',
     'space-unary-ops': 'error',
     'func-call-spacing': ['error', 'never'],
     'arrow-spacing': 'error',
-
     'no-redeclare': 'off',
     '@typescript-eslint/no-redeclare': 'error',
     '@typescript-eslint/ban-ts-comment': 'off',

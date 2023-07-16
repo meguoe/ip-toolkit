@@ -96,7 +96,7 @@ export declare function toSubnetMask(length: number): string | false;
  */
 export declare function parseCIDR(cidr: string): CidrInfo | false;
 /**
- * IPv4 地址范围类, 用于表示一个起始和结束IP地址定义的范围, 有效值为 0 到 4294967295
+ * IPv4 address range class for representing a range defined by a start and end IP address. Valid values are from 0 to 4294967295.
  */
 export declare class ipRange {
     #private;
@@ -174,9 +174,9 @@ export declare class ipRange {
      * @example
      * ```
      * const range = ipRange.fromString('192.168.1.1', '192.168.1.100');
-     * range.hasIp('192.168.1.99'); // true
-     * range.hasIp('192.168.0.11'); // false
+     * range.contains('192.168.1.99'); // true
+     * range.contains('192.168.0.11'); // false
      * ```
      */
-    hasIp(ip: string): boolean;
+    contains(ip: string): boolean;
 }

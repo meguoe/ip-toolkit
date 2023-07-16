@@ -14,13 +14,13 @@ import type { CidrInfo } from './types';
  * ```
  */
 
-export function ip2long( ip: string ): number | boolean {
-  if ( !isValidIP( ip ) ) return false;
+export function ip2long(ip: string): number | boolean {
+  if (!isValidIP(ip)) return false;
 
-  let long = 0
-  const parts = ip.split( '.' );
-  for ( const part of parts ) long = ( long << 8 ) + +part
-  return long >>> 0
+  let long = 0;
+  const parts = ip.split('.');
+  for (const part of parts) long = (long << 8) + +part;
+  return long >>> 0;
 }
 
 /**
@@ -36,11 +36,11 @@ export function ip2long( ip: string ): number | boolean {
  * ```
  */
 
-export function long2ip( ip: number ): string | false {
-  if ( ip >= 0 && ip <= 4294967295 ) {
+export function long2ip(ip: number): string | false {
+  if (ip >= 0 && ip <= 4294967295) {
     const parts: number[] = [];
-    for ( let i = 3; i >= 0; i-- ) parts.push( ( ip >>> ( i * 8 ) ) & 255 );
-    return parts.join( '.' );
+    for (let i = 3; i >= 0; i--) parts.push((ip >>> (i * 8)) & 255);
+    return parts.join('.');
   } else {
     return false;
   }
@@ -64,12 +64,12 @@ export function isValidIP(
   value: string,
   options: { strict?: boolean } = { strict: false }
 ): boolean {
-  if ( options.strict ) {
+  if (options.strict) {
     const IPV4_REGEX = /^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)$/;
-    return IPV4_REGEX.test( value );
+    return IPV4_REGEX.test(value);
   } else {
     const IPV4_REGEX = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-    return IPV4_REGEX.test( value );
+    return IPV4_REGEX.test(value);
   }
 }
 
@@ -88,17 +88,17 @@ export function isValidIP(
  * ```
  */
 
-export function isSameSubnet( ip1: string, ip2: string, mask: string ) {
-  const ip1Long = ip2long( ip1 );
-  if ( typeof ip1Long !== 'number' ) return false;
+export function isSameSubnet(ip1: string, ip2: string, mask: string) {
+  const ip1Long = ip2long(ip1);
+  if (typeof ip1Long !== 'number') return false;
 
-  const ip2Long = ip2long( ip2 );
-  if ( typeof ip2Long !== 'number' ) return false;
+  const ip2Long = ip2long(ip2);
+  if (typeof ip2Long !== 'number') return false;
 
-  const maskLong = ip2long( mask );
-  if ( typeof maskLong !== 'number' ) return false;
+  const maskLong = ip2long(mask);
+  if (typeof maskLong !== 'number') return false;
 
-  return ( ip1Long & maskLong ) === ( ip2Long & maskLong );
+  return (ip1Long & maskLong) === (ip2Long & maskLong);
 }
 
 /**
@@ -116,11 +116,11 @@ export function isSameSubnet( ip1: string, ip2: string, mask: string ) {
  * ```
  */
 
-export function toSubnetMask( length: number ): string | false {
-  if ( isNaN( length ) || length < 0 || length > 32 ) return false;
+export function toSubnetMask(length: number): string | false {
+  if (isNaN(length) || length < 0 || length > 32) return false;
 
   const mask = 0xffffffff << 32 - length;
-  return length ? long2ip( mask >>> 0 ) : '0.0.0.0';
+  return length ? long2ip(mask >>> 0) : '0.0.0.0';
 }
 
 /**
@@ -147,28 +147,28 @@ export function toSubnetMask( length: number ): string | false {
  * ``` 
  */
 
-export function parseCIDR( cidr: string ): CidrInfo | false {
-  const [ip, mask] = cidr.split( '/' );
-  if ( !isValidIP( ip ) || !( +mask >= 0 && +mask <= 32 ) ) return false
+export function parseCIDR(cidr: string): CidrInfo | false {
+  const [ip, mask] = cidr.split('/');
+  if (!isValidIP(ip) || !(+mask >= 0 && +mask <= 32)) return false;
 
-  const length = 32 - +mask
-  const longIP = ip2long( ip ) as number
-  const ipCount = Math.pow( 2, length )
-  const networkIP = +mask ? ( ( longIP >> length ) << length ) >>> 0 : 0;
-  const broadcastIP = ( networkIP | ipCount - 1 ) >>> 0
+  const length = 32 - +mask;
+  const longIP = ip2long(ip) as number;
+  const ipCount = Math.pow(2, length);
+  const networkIP = +mask ? ((longIP >> length) << length) >>> 0 : 0;
+  const broadcastIP = (networkIP | ipCount - 1) >>> 0;
 
   const cidrInfo: CidrInfo = {
     ipCount,
     cidrMask: +mask,
     usableCount: +mask < 31 ? ipCount - 2 : ipCount,
-    subnetMask: toSubnetMask( +mask ) as string,
-    networkAddress: +mask < 31 ? long2ip( networkIP ) as string : '',
-    broadcastAddress: +mask < 31 ? long2ip( broadcastIP ) as string : '',
-    firstHost: long2ip( networkIP + ( +mask < 31 ? 1 : 0 ) ) as string,
-    lastHost: long2ip( broadcastIP - ( +mask < 31 ? 1 : 0 ) ) as string,
-  }
+    subnetMask: toSubnetMask(+mask) as string,
+    networkAddress: +mask < 31 ? long2ip(networkIP) as string : '',
+    broadcastAddress: +mask < 31 ? long2ip(broadcastIP) as string : '',
+    firstHost: long2ip(networkIP + (+mask < 31 ? 1 : 0)) as string,
+    lastHost: long2ip(broadcastIP - (+mask < 31 ? 1 : 0)) as string,
+  };
   
-  return cidrInfo
+  return cidrInfo;
 }
 
 
@@ -181,9 +181,9 @@ export class ipRange {
   #start: number;
   #end: number;
 
-  constructor( start: number, end: number ) {
-    if ( +start < 0 || +start > 4294967295 || +end < 0 || +end > 4294967295 ) {
-      throw new Error( 'Invalid start or end IPv4 address' );
+  constructor(start: number, end: number) {
+    if (+start < 0 || +start > 4294967295 || +end < 0 || +end > 4294967295) {
+      throw new Error('Invalid start or end IPv4 address');
     }
 
     this.#start = start;
@@ -204,10 +204,10 @@ export class ipRange {
    * ```
    */
 
-  static fromLong( start: number, end: number ): ipRange {
-    if ( typeof start !== 'number' || typeof end !== 'number' ) throw new Error( 'Invalid start or end IPv4 address' );
-    if ( +end < +start ) throw new Error( 'Invalid range value, end must be greater than or equal to start' );
-    return new ipRange( start, end );
+  static fromLong(start: number, end: number): ipRange {
+    if (typeof start !== 'number' || typeof end !== 'number') throw new Error('Invalid start or end IPv4 address');
+    if (+end < +start) throw new Error('Invalid range value, end must be greater than or equal to start');
+    return new ipRange(start, end);
   }
 
   /**
@@ -224,12 +224,12 @@ export class ipRange {
    * ```
    */
 
-  static fromString( start: string, end: string ): ipRange {
-    const sLong = ip2long( start );
-    const eLong = ip2long( end );
-    if ( typeof sLong !== 'number' || typeof eLong !== 'number' ) throw new Error( 'Invalid start or end IPv4 address' );
-    if ( eLong < sLong ) throw new Error( 'Invalid range value, end must be greater than or equal to start' );
-    return new ipRange( sLong, eLong );
+  static fromString(start: string, end: string): ipRange {
+    const sLong = ip2long(start);
+    const eLong = ip2long(end);
+    if (typeof sLong !== 'number' || typeof eLong !== 'number') throw new Error('Invalid start or end IPv4 address');
+    if (eLong < sLong) throw new Error('Invalid range value, end must be greater than or equal to start');
+    return new ipRange(sLong, eLong);
   }
 
   /**
@@ -262,8 +262,8 @@ export class ipRange {
 
   long2ip(): string[] {
     return [
-      long2ip( this.#start ) as string,
-      long2ip( this.#end ) as string
+      long2ip(this.#start) as string,
+      long2ip(this.#end) as string
     ];
   }
 
@@ -292,14 +292,14 @@ export class ipRange {
    * @example
    * ```
    * const range = ipRange.fromString('192.168.1.1', '192.168.1.100');
-   * range.hasIp('192.168.1.99'); // true
-   * range.hasIp('192.168.0.11'); // false  
+   * range.contains('192.168.1.99'); // true
+   * range.contains('192.168.0.11'); // false  
    * ```
    */
 
-  hasIp( ip: string ): boolean {
-    const long = ip2long( ip );
-    if ( typeof long !== 'number' ) return false;
+  contains(ip: string): boolean {
+    const long = ip2long(ip);
+    if (typeof long !== 'number') return false;
     return long >= this.#start && long <= this.#end;
   }
 }

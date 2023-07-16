@@ -163,13 +163,13 @@ describe( 'IPv4方法策略', () => {
       expect( range.getSize() ).toBe( 100 );
     } );
 
-    it( 'hasIp 函数测试', () => {
+    it( 'contains 函数测试', () => {
       const range = ipRange.fromLong( 2886729729, 2886729828 );
-      expect( range.hasIp( '172.16.0.0' ) ).toBe( false );
-      expect( range.hasIp( '172.16.0.1' ) ).toBe( true );
-      expect( range.hasIp( '172.16.0.50' ) ).toBe( true );
-      expect( range.hasIp( '172.16.0.100' ) ).toBe( true );
-      expect( range.hasIp( '172.16.0.101' ) ).toBe( false );
+      expect( range.contains( '172.16.0.0' ) ).toBe( false );
+      expect( range.contains( '172.16.0.1' ) ).toBe( true );
+      expect( range.contains( '172.16.0.50' ) ).toBe( true );
+      expect( range.contains( '172.16.0.100' ) ).toBe( true );
+      expect( range.contains( '172.16.0.101' ) ).toBe( false );
     } );
   } );
 } );
