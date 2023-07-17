@@ -1,6 +1,4 @@
 
-import type { CidrInfo } from './types';
-
 /**
  * Convert IPv4 address from string to long integer 
  * 
@@ -147,7 +145,16 @@ export function toSubnetMask(length: number): string | false {
  * ``` 
  */
 
-export function parseCIDR(cidr: string): CidrInfo | false {
+export function parseCIDR(cidr: string): {
+  cidrMask: number;
+  ipCount: number;
+  usableCount: number;
+  subnetMask: string;
+  firstHost: string,
+  lastHost: string,
+  networkAddress?: string;
+  broadcastAddress?: string;
+} | false {
   const [ip, mask] = cidr.split('/');
   if (!isValidIP(ip) || !(+mask >= 0 && +mask <= 32)) return false;
 
@@ -157,7 +164,7 @@ export function parseCIDR(cidr: string): CidrInfo | false {
   const networkIP = +mask ? ((longIP >> length) << length) >>> 0 : 0;
   const broadcastIP = (networkIP | ipCount - 1) >>> 0;
 
-  const cidrInfo: CidrInfo = {
+  const cidrInfo = {
     ipCount,
     cidrMask: +mask,
     usableCount: +mask < 31 ? ipCount - 2 : ipCount,
