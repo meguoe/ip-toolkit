@@ -17,7 +17,7 @@ export function contains(cidr: string, ip: string): boolean {
   const subnet = parseCIDR(cidr);
   if (typeof subnet !== 'object' || !isValidIP(ip)) return false;
   
-  const {cidrMask, firstHost, lastHost, networkAddress, broadcastAddress} = subnet;
+  const { cidrMask, firstHost, lastHost, networkAddress, broadcastAddress } = subnet;
   if (cidrMask >= 31) {
     return ipRange.fromString(firstHost, lastHost).contains(ip);
   } else {

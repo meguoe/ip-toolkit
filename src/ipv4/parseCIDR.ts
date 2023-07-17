@@ -1,4 +1,4 @@
-import { ip2long, long2ip, isValidIP, isValidMask, toSubnetMask} from './index';
+import { ip2long, long2ip, isValidIP, isValidMask, toSubnetMask } from './index';
 
 interface SubNet {
   cidrMask: number;
@@ -38,7 +38,6 @@ interface SubNet {
 
 export function parseCIDR(cidr: string): SubNet | false {
   const [ip, mask] = cidr.split('/');
-  console.log(cidr);
   if (!isValidIP(ip) || !isValidMask(+mask)) return false;
   
   const length = 32 - +mask;
