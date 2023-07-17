@@ -12,4 +12,4 @@
  * toInverseMask('255.255.0.0');  // '0.0.255.255'
  * ```
  */
-export declare function toInverseMask(mask: string | number): string | boolean;
+export declare function toInverseMask(mask: string | number): string | false;

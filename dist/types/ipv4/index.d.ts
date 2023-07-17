@@ -9,6 +9,7 @@ export * from './parseCIDR';
 export * from './parseSubnet';
 export * from './isValidMask';
 export * from './isSameSubnet';
+export * from './toBinHex';
 export * from './toSubnetMask';
 export * from './toMaskLength';
 export * from './toInverseMask';

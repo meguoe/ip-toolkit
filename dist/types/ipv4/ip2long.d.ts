@@ -10,4 +10,4 @@
  * ip2long('192.168.0.257') // false
  * ```
  */
-export declare function ip2long(ip: string): number | boolean;
+export declare function ip2long(ip: string): number | false;
