@@ -8,5 +8,4 @@ dist
 .local
 babel.config.js
 jest.config.js
-src/tests
 commitlint.config.js

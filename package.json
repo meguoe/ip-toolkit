@@ -4,8 +4,8 @@
   "description": "A utility library for manipulating IPv4 and IPv6 addresses in Node.js.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "jest:test": "jest",
+    "test": "jest",
+    "build": "tsc --sourcemap false",
     "prepare": "husky install",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",

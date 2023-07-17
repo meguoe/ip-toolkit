@@ -47,6 +47,8 @@ module.exports = {
       named: 'never',
       asyncArrow: 'always'
     }],
+    'spaced-comment': ['error', 'always'],
+    'object-curly-spacing': ['error', 'always'],
     'block-spacing': ['error', 'always'],
     'space-in-parens': ['error', 'never'],
     'space-before-blocks': ['error', 'always'],

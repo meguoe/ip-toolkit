@@ -7,24 +7,39 @@
     "outDir": "dist",
     "rootDir": "src",
     "target": "es2016",
-    "sourceMap": false,
+    "sourceMap": true,
     "declaration": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "declarationDir": "dist/types",
   },
   "include": [
-    "src",
     "types",
+    "src/**/*.ts",
     ".eslintrc.js",
     "jest.config.js",
   ],
   "exclude": [
     "dist",
-    "src/tests",
-    "node_modules"
+    "node_modules",
+    "src/**/*.test.ts",
+  ],
+  "plugins": [
+    {
+      "transform": "ts-import-plugin",
+      "imports": [
+        {
+          "libraryName": "ipv4",
+          "libraryDirectory": "./src/ipv4",
+          "style": "glob" 
+        }
+      ]
+    }
   ]
 }
