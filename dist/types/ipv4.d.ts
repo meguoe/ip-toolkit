@@ -1,4 +1,3 @@
-import type { CidrInfo } from './types';
 /**
  * Convert IPv4 address from string to long integer
  *
@@ -94,7 +93,16 @@ export declare function toSubnetMask(length: number): string | false;
  * // }
  * ```
  */
-export declare function parseCIDR(cidr: string): CidrInfo | false;
+export declare function parseCIDR(cidr: string): {
+    cidrMask: number;
+    ipCount: number;
+    usableCount: number;
+    subnetMask: string;
+    firstHost: string;
+    lastHost: string;
+    networkAddress?: string;
+    broadcastAddress?: string;
+} | false;
 /**
  * IPv4 address range class for representing a range defined by a start and end IP address. Valid values are from 0 to 4294967295.
  */
