@@ -3,6 +3,16 @@
 
 This is a tool library that implements IPv4 address operations, providing functions like IP address conversion, validation, subnet calculation, etc. It can facilitate various IP address processing tasks in network programming.
 
+## Features
+
+- IP address conversion: string to integer and vice versa
+- IP address validation: check address validity
+- Subnet check: determine if address are in the same subnet
+- CIDR parsing: get address range info
+- Subnet mask: generate mask from prefix
+- IP range: represent address range
+- And other functions
+
 ## Installation
 
 ```shell
@@ -129,15 +139,6 @@ IPv4.toSubnetMask(8) // 255.0.0.0
 IPv4.toSubnetMask(16) // 255.255.0.0
 IPv4.toSubnetMask(24) // 255.255.255.0
 ```
-
-## Features
-
-- IP address conversion: string to integer and vice versa
-- IP address validation: check address validity
-- Subnet check: determine if address are in the same subnet
-- CIDR parsing: get address range info
-- Subnet mask: generate mask from prefix
-- IP range: represent address range
 
 ## Contributing
 
