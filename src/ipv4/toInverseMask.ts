@@ -15,7 +15,7 @@ import { ip2long, isValidMask, long2ip, toSubnetMask } from './index';
  * ```
  */
 
-export function toInverseMask(mask: string | number): string | boolean {
+export function toInverseMask(mask: string | number): string | false {
   if (!isValidMask(mask)) return false;
 
   if (typeof mask === 'number') mask = toSubnetMask(mask) as string;

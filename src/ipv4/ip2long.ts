@@ -12,7 +12,7 @@ import { isValidIP } from './index';
  * ```
  */
 
-export function ip2long(ip: string): number | boolean {
+export function ip2long(ip: string): number | false {
   if (!isValidIP(ip)) return false;
   
   let long = 0;
