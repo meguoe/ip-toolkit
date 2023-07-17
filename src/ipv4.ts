@@ -282,11 +282,11 @@ export class ipRange {
    * @example
    * ```
    * const range = ipRange.fromString('192.168.1.1', '192.168.1.100'); 
-   * range.getSize(); // 100
+   * range.ipCount(); // 100
    * ```
    */
 
-  getSize(): number {
+  ipCount(): number {
     return this.#end - this.#start + 1;
   }
 

@@ -158,9 +158,9 @@ describe( 'IPv4方法策略', () => {
       expect( range.long2ip() ).toStrictEqual( ['172.16.0.1', '172.16.0.100'] );
     } );
 
-    it( 'getSize 函数测试', () => {
+    it( 'ipCount 函数测试', () => {
       const range = ipRange.fromLong( 2886729729, 2886729828 );
-      expect( range.getSize() ).toBe( 100 );
+      expect( range.ipCount() ).toBe( 100 );
     } );
 
     it( 'contains 函数测试', () => {
