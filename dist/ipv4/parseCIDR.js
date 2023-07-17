@@ -37,7 +37,6 @@
      */
     function parseCIDR(cidr) {
         const [ip, mask] = cidr.split('/');
-        console.log(cidr);
         if (!(0, index_1.isValidIP)(ip) || !(0, index_1.isValidMask)(+mask))
             return false;
         const length = 32 - +mask;

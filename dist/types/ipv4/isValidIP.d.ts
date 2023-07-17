@@ -1,7 +1,7 @@
 /**
  * Validate if the IP address is valid
  *
- * @param value - The IP address string
+ * @param ip - The IP address string
  * @param options - Enable strict mode to disallow leading 0s, false by default
  * @returns True if valid, false otherwise
  *
@@ -11,6 +11,6 @@
  * isValidIP('192.168.01.99', {strict: true}) // false
  * ```
  */
-export declare function isValidIP(value: string, options?: {
+export declare function isValidIP(ip: string, options?: {
     strict?: boolean;
 }): boolean;

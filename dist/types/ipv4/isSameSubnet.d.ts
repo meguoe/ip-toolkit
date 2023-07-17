@@ -1,8 +1,8 @@
 /**
- * Verify if two IPv4 network addresses are on the same subnet
+ * Verify if two IP address are on the same subnet
  *
- * @param ip1 - The first IPv4 network address to compare
- * @param ip2 - The second IPv4 network address to compare
+ * @param ip1 - The first IP address to compare
+ * @param ip2 - The second IP address to compare
  * @param mask - The subnet mask
  * @returns true if in the same subnet, otherwise false
  *

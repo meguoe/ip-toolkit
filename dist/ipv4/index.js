@@ -18,7 +18,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./ip2long", "./long2ip", "./ipRange", "./contains", "./isValidIP", "./parseCIDR", "./parseSubnet", "./isValidMask", "./isSameSubnet", "./toSubnetMask", "./toMaskLength"], factory);
+        define(["require", "exports", "./ip2long", "./long2ip", "./ipRange", "./isEqual", "./contains", "./isPrivate", "./isValidIP", "./parseCIDR", "./parseSubnet", "./isValidMask", "./isSameSubnet", "./toSubnetMask", "./toMaskLength", "./toInverseMask"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -26,7 +26,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     __exportStar(require("./ip2long"), exports);
     __exportStar(require("./long2ip"), exports);
     __exportStar(require("./ipRange"), exports);
+    __exportStar(require("./isEqual"), exports);
     __exportStar(require("./contains"), exports);
+    __exportStar(require("./isPrivate"), exports);
     __exportStar(require("./isValidIP"), exports);
     __exportStar(require("./parseCIDR"), exports);
     __exportStar(require("./parseSubnet"), exports);
@@ -34,4 +36,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     __exportStar(require("./isSameSubnet"), exports);
     __exportStar(require("./toSubnetMask"), exports);
     __exportStar(require("./toMaskLength"), exports);
+    __exportStar(require("./toInverseMask"), exports);
 });
