@@ -2,20 +2,25 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",
+    "newLine": "LF",
+    "module": "umd",
     "outDir": "dist",
     "rootDir": "src",
-    "target": "ES2022",
-    "module": "commonjs",
+    "target": "es2016",
+    "sourceMap": false,
     "declaration": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
-    "lib": ["dom", "ES2022"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["dom", "esnext"],
+    "declarationDir": "dist/types",
   },
   "include": [
-    "src/**/*.ts",
+    "src",
+    "types",
     ".eslintrc.js",
-    "jest.config.js"
+    "jest.config.js",
   ],
   "exclude": [
     "dist",
@@ -23,24 +28,3 @@
     "node_modules"
   ]
 }
-
-// {
-//   "compilerOptions": {
-//     "paths": {
-//       "@/*": [
-//         "src/*"
-//       ]
-//     },
-//     "types": ["jest", "node"],
-//   },
-//   "include": [
-//     "src/**/*.ts",
-//     ".eslintrc.js",
-//     "jest.config.js"
-//   ],
-//   "exclude": [
-//     "dist",
-//     "node_modules",
-//     "src/**/*.test.ts",
-//   ]
-// }
