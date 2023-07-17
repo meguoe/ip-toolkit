@@ -27,11 +27,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./ipv4"], factory);
+        define(["require", "exports", "./ipv4/index"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.IPv4 = void 0;
-    exports.IPv4 = __importStar(require("./ipv4"));
+    exports.IPv4 = __importStar(require("./ipv4/index"));
 });
