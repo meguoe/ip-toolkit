@@ -22,6 +22,7 @@ module.exports = {
     'prefer-template': 'error',
     'block-scoped-var': 'error',
     'linebreak-style': ['error', 'unix'],
+    'no-multi-spaces': ['error'],
     'no-empty': ['error', { allowEmptyCatch: true }],
     'no-restricted-syntax': ['error', 'LabeledStatement', 'WithStatement'],
     'no-trailing-spaces': ['error', { skipBlankLines: true, ignoreComments: true }],
@@ -29,12 +30,26 @@ module.exports = {
     'object-shorthand': ['error', 'always', { ignoreConstructors: false, avoidQuotes: true }],
     'no-constant-condition': ['error', { checkLoops: false }],
 
+    
     semi: ['error', 'always'],
     quotes: ['error', 'single'],
     'quote-props': ['error', 'as-needed'],
-
+    'keyword-spacing': ['error', {
+      before: true,
+      after: true
+    }],
+    'key-spacing': ['error', {
+      beforeColon: false,
+      afterColon: true
+    }],
+    'space-before-function-paren': ['error', {
+      anonymous: 'never',
+      named: 'never',
+      asyncArrow: 'always'
+    }],
+    'block-spacing': ['error', 'always'],
     'space-in-parens': ['error', 'never'],
-    'space-before-blocks': 'error',
+    'space-before-blocks': ['error', 'always'],
     'space-unary-ops': 'error',
     'func-call-spacing': ['error', 'never'],
     'arrow-spacing': 'error',
@@ -69,6 +84,10 @@ module.exports = {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
       },
-    ]
+    ],
+    '@typescript-eslint/type-annotation-spacing': ['error', {
+      before: false,
+      after: true
+    }]
   },
 };
