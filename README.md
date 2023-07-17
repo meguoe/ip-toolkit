@@ -106,6 +106,13 @@ IPv4.parseSubnet('192.168.0.1', '255.255.255.0')
 //   broadcastAddress: '192.168.0.255' 
 // }
 
+IPv4.toBinHex('192.168.0.1');
+// results = {
+//   hex: '0xc0a80001',
+//   decimal: 3232235521,
+//   binary: '11000000101010000000000000001' 
+// }
+
 // Calculate the inverse mask of a subnet mask
 IPv4.toInverseMask(24);  // '0.0.0.255'
 IPv4.toInverseMask(16);  // '0.0.255.255'
