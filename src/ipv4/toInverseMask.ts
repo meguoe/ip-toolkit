@@ -20,6 +20,6 @@ export function toInverseMask(mask: string | number): string | false {
 
   if (typeof mask === 'number') mask = toSubnetMask(mask) as string;
   const longMask = ip2long(mask) as number;
-  const notMask = (longMask ^ 0xffffffff) >>> 0;
+  const notMask = ~longMask >>> 0;
   return long2ip(notMask);
 }
