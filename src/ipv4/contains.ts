@@ -5,7 +5,7 @@ import { ipRange, isValidIP, parseCIDR } from './index';
  * 
  * @param cidr - A standard format CIDR address
  * @param ip - The IPv4 address to check 
- * @returns true if within range, otherwise false
+ * @returns True if within range, otherwise false
  *
  * @example
  * 

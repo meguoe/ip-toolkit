@@ -4,7 +4,7 @@ import { ip2long } from './index';
  * Verify if the subnet mask is valid
  * 
  * @param  mask - The subnet mask to validate
- * @returns true if valid, otherwise false
+ * @returns True if valid, otherwise false
  * 
  * @example
  * isValidMask(24) // true
