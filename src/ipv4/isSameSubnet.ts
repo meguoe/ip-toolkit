@@ -1,4 +1,4 @@
-import { ip2long, isValidMask, toSubnetMask } from './index';
+import { ip2long, isValidIP, isValidMask, toSubnetMask } from './index';
 
 /**
  * Verify if two IPv4 address are on the same subnet
@@ -18,20 +18,11 @@ import { ip2long, isValidMask, toSubnetMask } from './index';
  */
 
 export function isSameSubnet(ip1: string, ip2: string, mask: string | number) {
-  if (typeof ip1 !== 'string' || typeof ip2 !== 'string' || !isValidMask(mask)) return false;
+  if (!isValidIP(ip1) || !isValidIP(ip2) || !isValidMask(mask)) return false;
 
-  const ip1Long = ip2long(ip1);
-  if (typeof ip1Long !== 'number') return false;
-  
-  const ip2Long = ip2long(ip2);
-  if (typeof ip2Long !== 'number') return false;
-  
-  if (typeof mask === 'number') {
-    mask = toSubnetMask(mask) as string;
-  }
-  
-  const maskLong = ip2long(mask);
-  if (typeof maskLong !== 'number') return false;
-  
+  const ip1Long = ip2long(ip1) as number;
+  const ip2Long = ip2long(ip2) as number;
+  if (typeof mask === 'number') mask = toSubnetMask(mask) as string;
+  const maskLong = ip2long(mask) as number;
   return (ip1Long & maskLong) === (ip2Long & maskLong);
 }
