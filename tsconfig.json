@@ -6,7 +6,7 @@
     "module": "umd",
     "outDir": "dist",
     "rootDir": "src",
-    "target": "es2016",
+    "target": "es2020",
     "sourceMap": true,
     "declaration": true,
     "skipLibCheck": true,
