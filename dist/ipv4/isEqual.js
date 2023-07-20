@@ -12,9 +12,9 @@
     exports.isEqual = void 0;
     const index_1 = require("./index");
     /**
-     * Verify if two IP address are equal
-     * @param ip1 The first IP address to compare
-     * @param ip2 The second IP address to compare
+     * Verify if two IPv4 address are equal
+     * @param ip1 The first IPv4 address to compare
+     * @param ip2 The second IPv4 address to compare
      * @returns True if equal, false otherwise
      *
      * @example

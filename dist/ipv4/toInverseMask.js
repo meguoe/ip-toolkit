@@ -31,7 +31,7 @@
         if (typeof mask === 'number')
             mask = (0, index_1.toSubnetMask)(mask);
         const longMask = (0, index_1.ip2long)(mask);
-        const notMask = (longMask ^ 0xffffffff) >>> 0;
+        const notMask = ~longMask >>> 0;
         return (0, index_1.long2ip)(notMask);
     }
     exports.toInverseMask = toInverseMask;

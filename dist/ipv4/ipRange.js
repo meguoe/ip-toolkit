@@ -24,7 +24,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     exports.ipRange = void 0;
     const index_1 = require("./index");
     /**
-     * IPv4 address range class for representing a range defined by a start and end IP address. Valid values are from 0 to 4294967295.
+     * IPv4 address range class for representing a range defined by a start and end IPv4 address. Valid values are from 0 to 4294967295.
      */
     class ipRange {
         constructor(start, end) {
@@ -39,10 +39,10 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
         /**
            * Create ipRange instance from start and end IPv4 integers
            *
-           * @param start - Start IP integer
-           * @param end - End IP integer
+           * @param start - Start IPv4 integer
+           * @param end - End IPv4 integer
            * @returns The created ipRange instance
-           * @throws Error if start or end IP is invalid
+           * @throws Error if start or end IPv4 is invalid
            *
            * @example
            * ```
@@ -59,10 +59,10 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
         /**
            * Create ipRange instance from start and end IPv4 strings
            *
-           * @param startIp - Start IP string
-           * @param endIp - End IP string
+           * @param startIp - Start IPv4 string
+           * @param endIp - End IPv4 string
            * @returns The created ipRange instance
-           * @throws Error if start or end IP is invalid
+           * @throws Error if start or end IPv4 is invalid
            *
            * @example
            * ```
@@ -79,9 +79,9 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
             return new ipRange(sLong, eLong);
         }
         /**
-           * Get start and end IP integers of current range
+           * Get start and end IPv4 integers of current range
            *
-           * @returns Array of start and end IP integers
+           * @returns Array of start and end IPv4 integers
            *
            * @example
            * ```
@@ -93,9 +93,9 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
             return [__classPrivateFieldGet(this, _ipRange_start, "f"), __classPrivateFieldGet(this, _ipRange_end, "f")];
         }
         /**
-           * Get start and end IP strings of current range
+           * Get start and end IPv4 strings of current range
            *
-           * @returns Array of start and end IP strings
+           * @returns Array of start and end IPv4 strings
            *
            * @example
            * ```
@@ -112,7 +112,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
         /**
            * Get the number of IPs in current range
            *
-           * @returns The IP count
+           * @returns Number of IPv4 addresses
            *
            * @example
            * ```
@@ -127,7 +127,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
            * Verify if the IPv4 address is within the current range
            *
            * @param ip - A standard IPv4 address string
-           * @returns true if within range, otherwise false
+           * @returns True if within range, otherwise false
            *
            * @example
            * ```

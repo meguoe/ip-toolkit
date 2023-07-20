@@ -4,9 +4,9 @@ interface BinHex {
     binary: string;
 }
 /**
- * Convert IP address to binary and hex representations.
+ * Convert IPv4 address to binary and hex representations.
  *
- * @param ip - The IP address string
+ * @param ip - The IPv4 address string
  * @returns Contains binary and hexadecimal objects, false if invalid
  *
  * @example

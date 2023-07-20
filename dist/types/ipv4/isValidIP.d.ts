@@ -1,7 +1,7 @@
 /**
- * Validate if the IP address is valid
+ * Validate if the IPv4 address is valid
  *
- * @param ip - The IP address string
+ * @param ip - The IPv4 address string
  * @param options - Enable strict mode to disallow leading 0s, false by default
  * @returns True if valid, false otherwise
  *

@@ -12,9 +12,9 @@
     exports.parseSubnet = void 0;
     const index_1 = require("./index");
     /**
-     * Parse IP address and subnet mask into CIDR info
+     * Parse IPv4 address and subnet mask into CIDR info
      *
-     * @param ip - The IP address string
+     * @param ip - The IPv4 address string
      * @param mask - The subnet mask string
      * @returns The parsed CIDR info object or false if invalid
      *

@@ -1,7 +1,7 @@
 /**
- * Validate if the IP address is valid
+ * Validate if the IPv4 address is valid
  *
- * @param ip - The IP address string
+ * @param ip - The IPv4 address string
  * @param options - Enable strict mode to disallow leading 0s, false by default
  * @returns True if valid, false otherwise
  *
@@ -25,11 +25,11 @@
     exports.isValidIP = void 0;
     function isValidIP(ip, options = { strict: false }) {
         if (options.strict) {
-            const IPV4_REGEX = /^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)$/;
+            const IPV4_REGEX = /^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])(\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)){3}$/;
             return IPV4_REGEX.test(ip);
         }
         else {
-            const IPV4_REGEX = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            const IPV4_REGEX = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/;
             return IPV4_REGEX.test(ip);
         }
     }

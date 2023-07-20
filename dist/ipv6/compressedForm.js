@@ -9,28 +9,27 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ip2long = void 0;
+    exports.compressedForm = void 0;
     const index_1 = require("./index");
     /**
-     * Convert IPv4 address string to number
+     * Compresses an expanded IPv6 address into shortened form.
      *
-     * @param ip - The IPv4 address string
-     * @returns The converted IPv4 number or false if invalid
+     * @param ip - The IPv6 address string
+     * @returns The compressed IPv6 address string or false if invalid
      *
      * @example
      * ```
-     * ip2long('192.168.0.1')   // 3232235521
-     * ip2long('192.168.0.257') // false
+     * compressedForm('2001:0db8:0000:0000:0000:0000:0000:0001')  // '2001:db8::1'
      * ```
      */
-    function ip2long(ip) {
+    function compressedForm(ip) {
         if (!(0, index_1.isValidIP)(ip))
             return false;
-        let long = 0;
-        const parts = ip.split('.');
-        for (const part of parts)
-            long = (long << 8) + +part;
-        return long >>> 0;
+        const sections = ip.split(':');
+        return sections.map((section) => {
+            const _section = parseInt(section, 16);
+            return _section ? _section.toString(16) : '';
+        }).join(':').replace(/:{2,}/g, '::');
     }
-    exports.ip2long = ip2long;
+    exports.compressedForm = compressedForm;
 });

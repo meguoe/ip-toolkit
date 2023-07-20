@@ -1,8 +1,8 @@
 /**
- * Convert IP address string to number
+ * Convert IPv4 address string to number
  *
- * @param ip - The IP address string
- * @returns The converted IP number or false if invalid
+ * @param ip - The IPv4 address string
+ * @returns The converted IPv4 number or false if invalid
  *
  * @example
  * ```
