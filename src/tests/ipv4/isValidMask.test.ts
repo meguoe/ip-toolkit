@@ -13,4 +13,5 @@ it('isValidMask 判断一个子网掩码是否合法的测试', () => {
   expect(IPv4.isValidMask('111.255.255.256')).toBe(false);
   expect(IPv4.isValidMask('255.255.255.256')).toBe(false);
   expect(IPv4.isValidMask('255.255.255.123')).toBe(false);
+  expect(IPv4.isValidMask(BigInt('1') as any)).toBe(false);
 });

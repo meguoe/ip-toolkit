@@ -2,7 +2,11 @@ import { IPv4 } from '../../index';
 
 describe('ipRange 类测试', () => {
   it('ipRange.fromLong 通过起始和结束IP数字创建ipRange对象的测试', () => {
-    expect(() => IPv4.ipRange.fromLong(2886729729, 2886729828)).not.toThrow();
+    try {
+      IPv4.ipRange.fromLong('2112' as any, 42949672);
+    } catch (error) {
+      expect(error).toEqual(new Error('Invalid start or end IPv4 address'));
+    }
     try {
       IPv4.ipRange.fromLong(-1, 42949672);
     } catch (error) {
@@ -14,6 +18,11 @@ describe('ipRange 类测试', () => {
       expect(error).toEqual(new Error('Invalid start or end IPv4 address'));
     }
     try {
+      IPv4.ipRange.fromLong(42949672, 100);
+    } catch (error) {
+      expect(error).toEqual(new Error('Invalid range value, end must be greater than or equal to start'));
+    }
+    try {
       IPv4.ipRange.fromLong(4294967296, 100);
     } catch (error) {
       expect(error).toEqual(new Error('Invalid range value, end must be greater than or equal to start'));
@@ -21,7 +30,6 @@ describe('ipRange 类测试', () => {
   });
 
   it('ipRange.fromString 通过起始和结束IP地址创建ipRange对象的测试', () => {
-    expect(() => IPv4.ipRange.fromString('192.168.1.1', '192.168.1.100')).not.toThrow();
     try {
       IPv4.ipRange.fromString('192.168.1.-1', '192.168.1.100');
     } catch (error) {
@@ -36,6 +44,11 @@ describe('ipRange 类测试', () => {
       IPv4.ipRange.fromString('192.168.1.256', '192.168.1.100');
     } catch (error) {
       expect(error).toEqual(new Error('Invalid start or end IPv4 address'));
+    }
+    try {
+      IPv4.ipRange.fromString('192.168.1.254', '192.168.1.100');
+    } catch (error) {
+      expect(error).toEqual(new Error('Invalid range value, end must be greater than or equal to start'));
     }
   });
 
@@ -61,5 +74,6 @@ describe('ipRange 类测试', () => {
     expect(range.contains('172.16.0.50')).toBe(true);
     expect(range.contains('172.16.0.100')).toBe(true);
     expect(range.contains('172.16.0.101')).toBe(false);
+    expect(range.contains('172.16.0.1x')).toBe(false);
   });
 });

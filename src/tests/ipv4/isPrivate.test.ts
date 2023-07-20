@@ -11,4 +11,5 @@ it('isPrivate 判断一个IP地址是否为私有专用地址', () => {
   expect(IPv4.isPrivate('169.255.32.33')).toBe(false);
   expect(IPv4.isPrivate('192.168.12.1')).toBe(true);
   expect(IPv4.isPrivate('193.168.12.1')).toBe(false);
+  expect(IPv4.isPrivate('89.0.142.861')).toBe(false);
 });

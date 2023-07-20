@@ -7,5 +7,7 @@ it('toMaskLength 将子网掩码转换为子网掩码长度的测试', () => {
   expect(IPv4.toMaskLength('255.255.0.0')).toBe(16);
   expect(IPv4.toMaskLength('255.255.255.0')).toBe(24);
   expect(IPv4.toMaskLength('255.255.255.255')).toBe(32);
+  expect(IPv4.toMaskLength('x.255.255.256')).toBe(false);
+  expect(IPv4.toMaskLength(88090111 as any)).toBe(false);
   expect(IPv4.toMaskLength('255.255.255.256')).toBe(false);
 });

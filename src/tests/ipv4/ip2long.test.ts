@@ -1,6 +1,6 @@
 import { IPv4 } from '../../index';
 
-it('ip2long 将 IP地址 转换为数字 的测试', () => {
+it('ip2long 将IP地址 转换为数字 的测试', () => {
   expect(IPv4.ip2long('s.0.0.0')).toBe(false);
   expect(IPv4.ip2long('s.0.0.258')).toBe(false);
   expect(IPv4.ip2long('10.0.0.1')).toBe(167772161);
