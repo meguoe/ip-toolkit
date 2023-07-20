@@ -145,8 +145,14 @@ IPv4.toSubnetMask(24) // 255.255.255.0
 ```js
 const { IPv6 } = require('ip-toolkit')
 
+// Convert IPv6 address string to number 
+ip2long('::ffff:ffff')   // 4294967295n 
+
+// Validate if the IPv6 address is valid
+isValidIP('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8') // true
+
 // Expands an abbreviated IPv6 address string into its full representation.
-toExpand('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
+expandedForm('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
 
 // Compresses an expanded IPv6 address into shortened form.
 compressedForm('2001:0db8:0000:0000:0000:0000:0000:0001')  // '2001:db8::1' 

@@ -1,4 +1,4 @@
-import { isValidIP, expandedFrom } from './index';
+import { isValidIP, expandedForm } from './index';
 
 /**
  * Convert IPv6 address string to number 
@@ -16,7 +16,7 @@ export function ip2long(ip: string): bigint | false {
   if (!isValidIP(ip)) return false;
   
   const binary = [];
-  ip = expandedFrom(ip) as string;
+  ip = expandedForm(ip) as string;
   const parts = ip.split(':');
   for (let i = 0; i < parts.length; i++) {
     const dec = parseInt(parts[i], 16);

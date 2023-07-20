@@ -15,11 +15,11 @@ interface BinHex {
  * 
  * @example 
  * ```
- * toExpand('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
+ * expandedForm('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
  * ```
  */
 
-export function expandedFrom(ip: string): string | false {
+export function expandedForm(ip: string): string | false {
   if (!isValidIP(ip)) return false;
   if (ip === '::') return '0000:'.repeat(8).slice(0, -1);
   
