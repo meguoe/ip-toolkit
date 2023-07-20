@@ -1,3 +1,5 @@
+import { isValidIP } from './index';
+
 /**
  * Compresses an expanded IPv6 address into shortened form.
  * 
@@ -10,9 +12,8 @@
  * ```
  */
 
-
 export function compressedForm(ip: string): string | false {
-  // TODO: 校验传入的IP地址是否合法
+  if (!isValidIP(ip)) return false;
   const sections: string[] = ip.split(':');
   
   return sections.map((section: string) => {

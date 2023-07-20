@@ -1,3 +1,12 @@
+import { IPv4 } from '../index';
+import { isValidIP } from './index';
+
+interface BinHex {
+  hex: string;
+  decimal: number;
+  binary: string;
+}
+
 /**
  * Expands an abbreviated IPv6 address string into its full representation.
  * 
@@ -11,13 +20,18 @@
  */
 
 export function expandedFrom(ip: string): string | false {
-  // TODO: Validate the input IP address
-  
+  if (!isValidIP(ip)) return false;
   if (ip === '::') return '0000:'.repeat(8).slice(0, -1);
   
   const sections: string[] = ip.split(':');
   for (let i = 0; i < sections.length; i++) {
     if (sections[i] === '' && sections[i + 1] === '') sections.splice(i, 1);
+  }
+
+  const last = sections[sections.length - 1];
+  if (IPv4.isValidIP(last)) {
+    const hex = (IPv4.toBinHex(last) as BinHex).hex.slice(2);
+    sections.pop() && sections.push(hex.slice(0, 4), hex.slice(4));
   }
   
   return sections.map((section) => {
