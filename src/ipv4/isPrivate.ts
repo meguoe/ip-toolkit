@@ -2,9 +2,9 @@ import { ipRange } from './ipRange';
 import { isValidIP } from './isValidIP';
 
 /**
- * Verify if an IP address is private
- * @param ip - The IP address string
- * @returns True if private IP, false otherwise
+ * Verify if an IPv4 address is private
+ * @param ip - The IPv4 address string
+ * @returns True if private IPv4, false otherwise
  *
  * @example
  * 

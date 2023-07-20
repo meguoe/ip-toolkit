@@ -1,7 +1,7 @@
 
 # IP Address Toolkit Library
 
-This is a tool library that implements IPv4 address operations, providing functions like IP address conversion, validation, subnet calculation, etc. It can facilitate various IP address processing tasks in network programming.
+This is a tool library that implements IPv4 adn IPv6 address operations, providing functions like IP address conversion, validation, subnet calculation, etc. It can facilitate various IP address processing tasks in network programming.
 
 ## Features
 
@@ -22,10 +22,10 @@ $ npm install --save ip-toolkit
 $ yarn install --save ip-toolkit
 ```
 
-## Usage
+## IPv4 Usage
 
 ```js
-const { IPv4 } =require('ip-toolkit')
+const { IPv4 } = require('ip-toolkit')
 
 //  Verify if the IP address is within the CIDR range
 IPv4.contains('192.168.1.0/24', '192.168.1.5')    // true
@@ -138,6 +138,19 @@ IPv4.toSubnetMask(0) // 0.0.0.0
 IPv4.toSubnetMask(8) // 255.0.0.0
 IPv4.toSubnetMask(16) // 255.255.0.0
 IPv4.toSubnetMask(24) // 255.255.255.0
+```
+
+## IPv6 Usage
+
+```js
+const { IPv6 } = require('ip-toolkit')
+
+// Expands an abbreviated IPv6 address string into its full representation.
+toExpand('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
+
+// Compresses an expanded IPv6 address into shortened form.
+compressedForm('2001:0db8:0000:0000:0000:0000:0000:0001')  // '2001:db8::1' 
+
 ```
 
 ## Contributing
