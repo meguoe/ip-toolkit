@@ -25,11 +25,20 @@
     function compressedForm(ip) {
         if (!(0, index_1.isValidIP)(ip))
             return false;
+        if ((0, index_1.ip2long)(ip) === 0n)
+            return '::';
+        ip = (0, index_1.expandedForm)(ip);
         const sections = ip.split(':');
-        return sections.map((section) => {
+        const compress = sections.map((section) => {
             const _section = parseInt(section, 16);
-            return _section ? _section.toString(16) : '';
-        }).join(':').replace(/:{2,}/g, '::');
+            return _section ? _section.toString(16) : 'X';
+        }).join(':');
+        const regExp = [/(X:X:X:X:X:X:X)/, /(X:X:X:X:X:X)/, /(X:X:X:X:X)/, /(X:X:X:X)/, /(X:X:X)/, /(X:X)/];
+        for (let i = 0; i < regExp.length; i++) {
+            if (compress.match(regExp[i]))
+                return compress.replace(regExp[i], ':').replace(':::', '::').replaceAll('X', '0');
+        }
+        return compress.replaceAll('X', '0');
     }
     exports.compressedForm = compressedForm;
 });

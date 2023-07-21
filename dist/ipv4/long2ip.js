@@ -23,6 +23,8 @@
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.long2ip = void 0;
     function long2ip(ip) {
+        if (typeof ip !== 'number')
+            return false;
         if (ip >= 0 && ip <= 4294967295) {
             const parts = [];
             for (let i = 3; i >= 0; i--)

@@ -26,7 +26,7 @@
      * ```
      */
     function toSubnetMask(length) {
-        if (isNaN(length) || !(0, index_1.isValidMask)(length))
+        if (typeof length !== 'number' || isNaN(length) || !(0, index_1.isValidMask)(length))
             return false;
         const mask = 0xffffffff << 32 - length;
         return length ? (0, index_1.long2ip)(mask >>> 0) : '0.0.0.0';

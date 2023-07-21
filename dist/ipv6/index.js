@@ -18,12 +18,13 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./ip2long", "./isValidIP", "./expandedForm", "./compressedForm"], factory);
+        define(["require", "exports", "./ip2long", "./long2ip", "./isValidIP", "./expandedForm", "./compressedForm"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     __exportStar(require("./ip2long"), exports);
+    __exportStar(require("./long2ip"), exports);
     __exportStar(require("./isValidIP"), exports);
     __exportStar(require("./expandedForm"), exports);
     __exportStar(require("./compressedForm"), exports);

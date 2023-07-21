@@ -148,6 +148,9 @@ const { IPv6 } = require('ip-toolkit')
 // Convert IPv6 address string to number 
 ip2long('::ffff:ffff')   // 4294967295n 
 
+// Convert IPv6 address number to string 
+ip2long(4294967295n)   // ::ffff:ffff
+
 // Validate if the IPv6 address is valid
 isValidIP('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8') // true
 
