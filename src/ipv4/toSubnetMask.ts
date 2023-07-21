@@ -16,7 +16,7 @@ import { long2ip, isValidMask } from './index';
  */
 
 export function toSubnetMask(length: number): string | false {
-  if (isNaN(length) || !isValidMask(length)) return false;
+  if (typeof length !== 'number' || isNaN(length) || !isValidMask(length)) return false;
   
   const mask = 0xffffffff << 32 - length;
   return length ? long2ip(mask >>> 0) : '0.0.0.0';
