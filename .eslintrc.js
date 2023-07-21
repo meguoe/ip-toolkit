@@ -29,6 +29,7 @@ module.exports = {
     'object-shorthand': ['error', 'always', { ignoreConstructors: false, avoidQuotes: true }],
     'no-constant-condition': ['error', { checkLoops: false }],
     'no-multiple-empty-lines': ['error', { max: 1 }],
+    'space-infix-ops': ['error', { int32Hint: false }],
     
     semi: ['error', 'always'],
     quotes: ['error', 'single'],
