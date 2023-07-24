@@ -13,7 +13,7 @@ import { ip2long } from './index';
 */
 
 export function isValidMask(mask: string | number): boolean {
-  if (typeof mask === 'number') {
+  if (typeof mask === 'number' && !isNaN(mask)) {
     if (mask < 0 || mask > 32) return false;
     return true;
   } else if (typeof mask === 'string') {

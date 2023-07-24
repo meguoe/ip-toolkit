@@ -44,7 +44,7 @@ export function parseCIDR(cidr: string): SubNet | false {
   
   const length = 32 - +mask;
   const longIP = ip2long(ip) as number;
-  const ipCount = Math.pow(2, length);
+  const ipCount = Number(0b1n << BigInt(length));
   const networkIP = +mask ? ((longIP >> length) << length) >>> 0 : 0;
   const broadcastIP = (networkIP | ipCount - 1) >>> 0;
   
