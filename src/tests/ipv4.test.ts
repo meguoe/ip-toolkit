@@ -229,37 +229,38 @@ const ipConvertCases = [
 
 describe('isEqual', () => {
   test.each(ipConvertCases)('判断 $ip 是否等于 $long', ({ ip, long }) => expect(IPv4.isEqual(ip, long)).toBe(true));
-  test.each(convertFailCases)('将 $ip 转换为 false', ({ ip, ip2 }) => expect(IPv4.isEqual(ip as any, ip2 as any)).toBe(false));
+  test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip, ip2 }) => expect(IPv4.isEqual(ip as any, ip2 as any)).toBe(false));
 });
 
 describe('isValidIP', () => {
   test.each(ipConvertCases)('判断 $ip 是否等于 $long', ({ ip, strict }) => expect(IPv4.isValidIP(ip, { strict })).toBe(true));
+  test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip }) => expect(IPv4.isValidIP(ip as any)).toBe(false));
 });
 
 describe('ip2long', () => {
   expect(IPv4.ip2long('1:::1')).toBe(false);
   test.each(ipConvertCases)('将 $ip 转换为 $long', ({ ip, long }) => expect(IPv4.ip2long(ip as any)).toBe(long));
-  test.each(convertFailCases)('将 $ip 转换为 false', ({ ip }) => expect(IPv4.ip2long(ip as any)).toBe(false));
+  test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip }) => expect(IPv4.ip2long(ip as any)).toBe(false));
 });
 
 describe('long2ip', () => {
   test.each(ipConvertCases)('将 $long 转换为 $ip', ({ ip, long }) => expect(IPv4.long2ip(long as any)).toBe(ip));
-  test.each(convertFailCases)('将 $ip 转换为 false', ({ ip }) => expect(IPv4.long2ip(ip as any)).toBe(false));
+  test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip }) => expect(IPv4.long2ip(ip as any)).toBe(false));
 });
 
 describe('toBinHex', () => {
   test.each(ipConvertCases)('判断 $ip 是否等于 $binHex', ({ ip, binHex }) => expect(IPv4.toBinHex(ip)).toMatchObject(binHex));
-  test.each(convertFailCases)('将 $ip 转换为 false', ({ ip }) => expect(IPv4.toBinHex(ip as any)).toBe(false));
+  test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip }) => expect(IPv4.toBinHex(ip as any)).toBe(false));
 });
 
 describe('toIPv6Format', () => {
   test.each(ipConvertCases)('判断 $ip 是否等于 $v6format', ({ ip, v6format }) => expect(IPv4.toIPv6Format(ip)).toMatchObject(v6format));
-  test.each(convertFailCases)('将 $ip 转换为 false', ({ ip }) => expect(IPv4.toIPv6Format(ip as any)).toBe(false));
+  test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip }) => expect(IPv4.toIPv6Format(ip as any)).toBe(false));
 });
 
 describe('isPrivate', () => {
   test.each(ipConvertCases)('判断 $ip 是否为私有专用地址', ({ ip, isPrivate }) => expect(IPv4.isPrivate(ip)).toBe(isPrivate));
-  test.each(convertFailCases)('将 $ip 转换为 false', ({ ip }) => expect(IPv4.isPrivate(ip as any)).toBe(false));
+  test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip }) => expect(IPv4.isPrivate(ip as any)).toBe(false));
 });
 
 // 子网掩码转换操作测试用例
