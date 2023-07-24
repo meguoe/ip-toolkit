@@ -26,6 +26,11 @@ const ipConvertCases = [
       decimal: 0,
       binary: '00000000000000000000000000000000'
     },
+    v6format: {
+      comperssed: '::ffff:0:0',
+      expanded: '0000:0000:0000:0000:0000:ffff:0000:0000',
+      mapped: '::ffff:0.0.0.0',
+    },
     isPrivate: false
   },
   {
@@ -36,6 +41,11 @@ const ipConvertCases = [
       hex: '0x01000001',
       decimal: 16777217,
       binary: '00000001000000000000000000000001'
+    },
+    v6format: {
+      comperssed: '::ffff:100:1',
+      expanded: '0000:0000:0000:0000:0000:ffff:0100:0001',
+      mapped: '::ffff:1.0.0.1',
     },
     isPrivate: false
   },
@@ -48,6 +58,11 @@ const ipConvertCases = [
       decimal: 167772161,
       binary: '00001010000000000000000000000001'
     },
+    v6format: {
+      comperssed: '::ffff:a00:1',
+      expanded: '0000:0000:0000:0000:0000:ffff:0a00:0001',
+      mapped: '::ffff:10.0.0.1',
+    },
     isPrivate: true
   },
   {
@@ -58,6 +73,11 @@ const ipConvertCases = [
       hex: '0x0b0a0001',
       decimal: 185204737,
       binary: '00001011000010100000000000000001'
+    },
+    v6format: {
+      comperssed: '::ffff:b0a:1',
+      expanded: '0000:0000:0000:0000:0000:ffff:0b0a:0001',
+      mapped: '::ffff:11.10.0.1',
     },
     isPrivate: false
   },
@@ -70,6 +90,11 @@ const ipConvertCases = [
       decimal: 2130706433,
       binary: '01111111000000000000000000000001'
     },
+    v6format: {
+      comperssed: '::ffff:7f00:1',
+      expanded: '0000:0000:0000:0000:0000:ffff:7f00:0001',
+      mapped: '::ffff:127.0.0.1',
+    },
     isPrivate: true
   },
   {
@@ -80,6 +105,11 @@ const ipConvertCases = [
       hex: '0x80000001',
       decimal: 2147483649,
       binary: '10000000000000000000000000000001'
+    },
+    v6format: {
+      comperssed: '::ffff:8000:1',
+      expanded: '0000:0000:0000:0000:0000:ffff:8000:0001',
+      mapped: '::ffff:128.0.0.1',
     },
     isPrivate: false
   },
@@ -92,6 +122,11 @@ const ipConvertCases = [
       decimal: 2886729729,
       binary: '10101100000100000000000000000001'
     },
+    v6format: {
+      comperssed: '::ffff:ac10:1',
+      expanded: '0000:0000:0000:0000:0000:ffff:ac10:0001',
+      mapped: '::ffff:172.16.0.1',
+    },
     isPrivate: true
   },
   {
@@ -102,6 +137,11 @@ const ipConvertCases = [
       hex: '0xac200b01',
       decimal: 2887781121,
       binary: '10101100001000000000101100000001'
+    },
+    v6format: {
+      comperssed: '::ffff:ac20:b01',
+      expanded: '0000:0000:0000:0000:0000:ffff:ac20:0b01',
+      mapped: '::ffff:172.32.11.1',
     },
     isPrivate: false
   },
@@ -114,6 +154,11 @@ const ipConvertCases = [
       decimal: 2852003873,
       binary: '10101001111111100010000000100001'
     },
+    v6format: {
+      comperssed: '::ffff:a9fe:2021',
+      expanded: '0000:0000:0000:0000:0000:ffff:a9fe:2021',
+      mapped: '::ffff:169.254.32.33',
+    },
     isPrivate: true
   },
   {
@@ -124,6 +169,11 @@ const ipConvertCases = [
       hex: '0xa9ff2021',
       decimal: 2852069409,
       binary: '10101001111111110010000000100001'
+    },
+    v6format: {
+      comperssed: '::ffff:a9ff:2021',
+      expanded: '0000:0000:0000:0000:0000:ffff:a9ff:2021',
+      mapped: '::ffff:169.255.32.33',
     },
     isPrivate: false
   },
@@ -136,6 +186,11 @@ const ipConvertCases = [
       decimal: 3232235521,
       binary: '11000000101010000000000000000001'
     },
+    v6format: {
+      comperssed: '::ffff:c0a8:1',
+      expanded: '0000:0000:0000:0000:0000:ffff:c0a8:0001',
+      mapped: '::ffff:192.168.0.1',
+    },
     isPrivate: true
   },
   {
@@ -147,6 +202,11 @@ const ipConvertCases = [
       decimal: 3249012737,
       binary: '11000001101010000000000000000001'
     },
+    v6format: {
+      comperssed: '::ffff:c1a8:1',
+      expanded: '0000:0000:0000:0000:0000:ffff:c1a8:0001',
+      mapped: '::ffff:193.168.0.1',
+    },
     isPrivate: false
   },
   {
@@ -157,6 +217,11 @@ const ipConvertCases = [
       hex: '0xffffffff',
       decimal: 4294967295,
       binary: '11111111111111111111111111111111'
+    },
+    v6format: {
+      comperssed: '::ffff:ffff:ffff',
+      expanded: '0000:0000:0000:0000:0000:ffff:ffff:ffff',
+      mapped: '::ffff:255.255.255.255',
     },
     isPrivate: false
   }
@@ -185,6 +250,11 @@ describe('long2ip', () => {
 describe('toBinHex', () => {
   test.each(ipConvertCases)('判断 $ip 是否等于 $binHex', ({ ip, binHex }) => expect(IPv4.toBinHex(ip)).toMatchObject(binHex));
   test.each(convertFailCases)('将 $ip 转换为 false', ({ ip }) => expect(IPv4.toBinHex(ip as any)).toBe(false));
+});
+
+describe('toIPv6Format', () => {
+  test.each(ipConvertCases)('判断 $ip 是否等于 $v6format', ({ ip, v6format }) => expect(IPv4.toIPv6Format(ip)).toMatchObject(v6format));
+  test.each(convertFailCases)('将 $ip 转换为 false', ({ ip }) => expect(IPv4.toIPv6Format(ip as any)).toBe(false));
 });
 
 describe('isPrivate', () => {

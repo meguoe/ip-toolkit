@@ -10,6 +10,7 @@ export * from './parseSubnet';
 export * from './isValidMask';
 export * from './isSameSubnet';
 export * from './toBinHex';
+export * from './toIPv6Format';
 export * from './toSubnetMask';
 export * from './toMaskLength';
 export * from './toInverseMask';
