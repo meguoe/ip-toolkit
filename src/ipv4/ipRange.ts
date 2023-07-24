@@ -90,8 +90,8 @@ export class ipRange {
   
   long2ip(): string[] {
     return [
-        long2ip(this.#start) as string,
-        long2ip(this.#end) as string
+      long2ip(this.#start) as string,
+      long2ip(this.#end) as string
     ];
   }
   

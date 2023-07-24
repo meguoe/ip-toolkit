@@ -56,6 +56,7 @@ module.exports = {
     'func-call-spacing': ['error', 'never'],
     'arrow-spacing': 'error',
     'no-redeclare': 'off',
+    '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/no-redeclare': 'error',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-types': 'off',

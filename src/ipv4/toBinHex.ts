@@ -1,13 +1,13 @@
 import { ip2long, isValidIP } from './index';
 
 interface BinHex {
-    hex: string;
-    decimal: number;
-    binary: string;
+  hex: string;
+  decimal: number;
+  binary: string;
 }
 
 /**
- * Convert IPv4 address to binary and hex representations.
+ * Convert IPv4 address to binary and hex
  * 
  * @param ip - The IPv4 address string
  * @returns Contains binary and hexadecimal objects, false if invalid

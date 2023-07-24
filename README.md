@@ -27,100 +27,50 @@ $ yarn install --save ip-toolkit
 ```js
 const { IPv4 } = require('ip-toolkit')
 
-//  Verify if the IP address is within the CIDR range
-IPv4.contains('192.168.1.0/24', '192.168.1.5')    // true
-IPv4.contains('192.168.1.0/24', '192.168.2.5')    // false
-
 // Convert IP address string to number 
 IPv4.ip2long("192.168.0.1") // 3232235521
 IPv4.ip2long("192.168.0.257") // false
 
-// Create ipRange instance from start and end IPv4 integers
-const range1 = IPv4.ipRange.fromLong(3232235777, 3232235876);
-IPv4.range1.ipCount(); // 100
-IPv4.range1.contains('192.168.1.11'); // true
-IPv4.range1.long2ip() // [ '192.168.1.1', '192.168.1.100' ]
-
-// Create ipRange instance from start and end IPv4 strings 
-const range2 = IPv4.ipRange.fromString('192.168.1.1', '192.168.1.100');
-IPv4.range2.ipCount() // 100
-IPv4.range2.contains('192.168.1.11'); // true
-IPv4.range2.ip2long() // [ 3232235777, 3232235876 ]
-
-// Parse IP address and subnet mask into CIDR info
-IPv4.parseSubnet('192.168.0.1', '1.255.255.0')    // false
-IPv4.parseSubnet('192.168.0.1', '255.255.255.0')
-// {
-//   ipCount: 256,  
-//   usableCount: 254,
-//   cidrMask: 24, 
-//   subnetMask: '255.255.255.0',
-//   firstHost: '192.168.0.1', 
-//   lastHost: '192.168.0.254',
-//   networkAddress: '192.168.0.0',
-//   broadcastAddress: '192.168.0.255' 
-// }
-
-// Verify if two IP address are equal
-IPv4.isEqual(32322355, 3232235521)  // false
-IPv4.isEqual(3232235521, 3232235521)  // true
-IPv4.isEqual('192.168.0.1', 3232235521)  // true
-IPv4.isEqual('192.168.1.10', '192.168.1.10') // true
-IPv4.isEqual('192.168.01.10', '192.168.1.010') // true
-
-// Verify if an IP address is private 
-IPv4.isPrivate('192.168.0.1') // returns true
-IPv4.isPrivate('114.114.114.114') // returns false 
-
-// Verify if two IP address are on the same subnet
-IPv4.isSameSubnet('192.168.1.10', '192.168.1.100', '255.255.255.0'); // true
-IPv4.isSameSubnet('192.168.1.10', '192.168.2.100', '255.255.255.0'); // true
+// Convert IP number to address string
+IPv4.long2ip(3232235521) // 192.168.0.1
+IPv4.long2ip(-1) // false
 
 // Validate if the IP address is valid
 IPv4.isValidIP('172.16.1.1') // true
 IPv4.isValidIP('172.16.01.1') // true
 IPv4.isValidIP('172.16.01.1', {strict: true}) // false
 
+// Verify if two IP address are equal
+IPv4.isEqual('192.168.0.1', 3232235521)  // true
+IPv4.isEqual('192.168.1.10', '192.168.1.10') // true
+
+//  Verify if the IP address is within the CIDR range
+IPv4.contains('192.168.1.0/24', '192.168.1.5')    // true
+IPv4.contains('192.168.1.0/24', '192.168.2.5')    // false
+
+// Verify if an IP address is private 
+IPv4.isPrivate('192.168.0.1') // returns true
+IPv4.isPrivate('114.114.114.114') // returns false 
+
 // Verify if the subnet mask is valid
 IPv4.isValidMask(24) // true
 IPv4.isValidMask('255.255.255.0') // true 
 IPv4.isValidMask('255.255.256.0') // false
 
-// Convert IP number to address string
-IPv4.long2ip(3232235521) // 192.168.0.1
-IPv4.long2ip(-1) // false
-
-// Parse IPv4 CIDR address to get address range info
-IPv4.parseCIDR('192.168.0.1/24')
-//   {
-//     ipCount: 256,
-//     usableCount: 254,
-//     cidrMask: 24,
-//     subnetMask: '255.255.255.0',
-//     firstHost: '192.168.0.1',
-//     lastHost: '192.168.0.254',
-//     networkAddress: '192.168.1.0',
-//     broadcastAddress: '192.168.1.255'
-//   }
-
-IPv4.parseSubnet('192.168.0.1', '1.255.255.0')    // false
-IPv4.parseSubnet('192.168.0.1', '255.255.255.0')
+// Convert IPv4 address to binary and hex
+IPv4.toBinHex('172.16.0.1');
 // {
-//   ipCount: 256,  
-//   usableCount: 254,
-//   cidrMask: 24, 
-//   subnetMask: '255.255.255.0',
-//   firstHost: '192.168.0.1', 
-//   lastHost: '192.168.0.254',
-//   networkAddress: '192.168.0.0',
-//   broadcastAddress: '192.168.0.255' 
+//   hex: '0xac100001',
+//   decimal: 2886729729,
+//   binary: '10101100000100000000000000000001' 
 // }
 
-IPv4.toBinHex('192.168.0.1');
-// results = {
-//   hex: '0xc0a80001',
-//   decimal: 3232235521,
-//   binary: '11000000101010000000000000001' 
+// Converts IPv4 address to IPv6 format
+IPv4.toIPv6Format('192.168.1.1');
+// {
+//   mapped: '::ffff:192.168.1.1',  
+//   comperssed: "::ffff:c0a8:101"
+//   expanded: '0000:0000:0000:0000:0000:ffff:c0a8:0101',
 // }
 
 // Calculate the inverse mask of a subnet mask
@@ -138,6 +88,49 @@ IPv4.toSubnetMask(0) // 0.0.0.0
 IPv4.toSubnetMask(8) // 255.0.0.0
 IPv4.toSubnetMask(16) // 255.255.0.0
 IPv4.toSubnetMask(24) // 255.255.255.0
+
+// Verify if two IP address are on the same subnet
+IPv4.isSameSubnet('192.168.1.10', '192.168.1.100', '255.255.255.0'); // true
+IPv4.isSameSubnet('192.168.1.10', '192.168.2.100', '255.255.255.0'); // true
+
+// Parse IPv4 CIDR address to get address range info
+IPv4.parseCIDR('192.168.0.1/24')
+// {
+//   ipCount: 256,
+//   usableCount: 254,
+//   cidrMask: 24,
+//   subnetMask: '255.255.255.0',
+//   firstHost: '192.168.0.1',
+//   lastHost: '192.168.0.254',
+//   networkAddress: '192.168.1.0',
+//   broadcastAddress: '192.168.1.255'
+// }
+
+// Parse IP address and subnet mask into CIDR info
+IPv4.parseSubnet('192.168.0.1', '255.255.255.0')
+// {
+//   ipCount: 256,  
+//   usableCount: 254,
+//   cidrMask: 24, 
+//   subnetMask: '255.255.255.0',
+//   firstHost: '192.168.0.1', 
+//   lastHost: '192.168.0.254',
+//   networkAddress: '192.168.0.0',
+//   broadcastAddress: '192.168.0.255' 
+// }
+
+// Create ipRange instance from start and end IPv4 integers
+const range1 = IPv4.ipRange.fromLong(3232235777, 3232235876);
+IPv4.range1.ipCount(); // 100
+IPv4.range1.contains('192.168.1.11'); // true
+IPv4.range1.long2ip() // [ '192.168.1.1', '192.168.1.100' ]
+
+// Create ipRange instance from start and end IPv4 strings 
+const range2 = IPv4.ipRange.fromString('192.168.1.1', '192.168.1.100');
+IPv4.range2.ipCount() // 100
+IPv4.range2.contains('192.168.1.11'); // true
+IPv4.range2.ip2long() // [ 3232235777, 3232235876 ]
+
 ```
 
 ## IPv6 Usage
