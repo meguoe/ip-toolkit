@@ -6,6 +6,7 @@ export * from './contains';
 export * from './isPrivate';
 export * from './isValidIP';
 export * from './parseCIDR';
+export * from './isConflict';
 export * from './parseSubnet';
 export * from './isValidMask';
 export * from './isSameSubnet';

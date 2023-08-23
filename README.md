@@ -57,6 +57,12 @@ IPv4.isValidMask(24) // true
 IPv4.isValidMask('255.255.255.0') // true 
 IPv4.isValidMask('255.255.256.0') // false
 
+// Verify if a set of CIDR ranges have conflicts
+IPv4.isConflict(['192.168.1.0/24', '192.168.0.0/16'])  // true
+IPv4.isConflict(['192.168.1.0/24', '192.168.2.0/24'])  // false
+IPv4.isConflict(['192.168.1.0/24', '192.168.2.0/24', '192.168.3.0/16'])  // true
+IPv4.isConflict(['192.168.1.0/24', '192.168.2.0/24', '192.168.3.0/24'])  // false
+
 // Convert IPv4 address to binary and hex
 IPv4.toBinHex('172.16.0.1');
 // {

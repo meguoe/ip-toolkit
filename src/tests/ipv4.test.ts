@@ -12,7 +12,7 @@ const convertFailCases = [
   { ip: '192.168.1.1/-1', ip2: 2121212 },
   { ip: '192.168.1.1/33', ip2: 2121212 },
   { ip: '259.168.1.1/30', ip2: 2121212 },
-  { ip: '29.68.1.1/30', ip2: 4294967296 }
+  { ip: '29.68.1.1/33', ip2: 4294967296 }
 ];
 
 // IP 格式转换测试用例
@@ -370,7 +370,7 @@ describe('contains', () => {
 
 describe('parseCIDR', () => {
   test.each(cidrConvertCases)('判断 $cidr 是否等于 $subnet', ({ cidr, subnet }) => expect(IPv4.parseCIDR(cidr as any)).toMatchObject(subnet));
-  test.each(convertFailCases)('判断 $ip 异常是否等于 false', ({ ip }) => expect(IPv4.toInverseMask(ip as any)).toBe(false));
+  test.each(convertFailCases)('判断 $ip 异常是否等于 false', ({ ip }) => expect(IPv4.parseCIDR(ip as any)).toBe(false));
 });
 
 describe('parseSubnet', () => {
@@ -379,7 +379,6 @@ describe('parseSubnet', () => {
 });
 
 // IP Range 测试用例
-
 const ipRangeCases = [
   {
     result: true,
@@ -387,6 +386,8 @@ const ipRangeCases = [
     count: 356,
     contains: '192.168.0.99',
     ip: ['192.168.0.1', '192.168.1.100'],
+    conflict: false,
+    cidrs: ['192.168.0.1/24', '192.168.1.100/24'],
     long: [3232235521, 3232235876]
   }
   , {
@@ -395,6 +396,8 @@ const ipRangeCases = [
     count: 100,
     contains: '192.168.1.76',
     ip: ['192.168.1.1', '192.168.1.100'],
+    conflict: true,
+    cidrs: ['192.168.0.1/24', '192.168.1.100/16'],
     long: [3232235777, 3232235876]
   }, {
     result: true,
@@ -402,6 +405,8 @@ const ipRangeCases = [
     count: 323,
     contains: '192.168.1.76',
     ip: ['192.168.0.67', '192.168.1.133'],
+    conflict: false,
+    cidrs: ['192.167.0.1/24', '192.168.1.100/16'],
     long: [3232235587, 3232235909]
   }, {
     result: true,
@@ -409,6 +414,8 @@ const ipRangeCases = [
     count: 120,
     contains: '192.168.28.76',
     ip: ['192.168.28.1', '192.168.28.120'],
+    conflict: true,
+    cidrs: ['192.67.0.1/24', '192.168.1.100/8'],
     long: [3232242689, 3232242808]
   }, {
     result: false,
@@ -416,6 +423,8 @@ const ipRangeCases = [
     count: 3,
     contains: '192.128.33.2',
     ip: ['192.128.33.1', '192.128.33.3'],
+    conflict: false,
+    cidrs: ['192.67.0.1/24', '92.168.1.100/8'],
     long: [3229622529, 3229622531]
   }, {
     result: false,
@@ -423,6 +432,8 @@ const ipRangeCases = [
     count: 71012,
     contains: '132.168.33.1',
     ip: ['132.168.1.1', '132.169.22.100'],
+    conflict: false,
+    cidrs: ['192.67.0.1/24', '92.168.1.100/88'],
     long: [2225602817, 2225673828]
   }, {
     result: false,
@@ -430,6 +441,8 @@ const ipRangeCases = [
     count: 356,
     contains: '192.168.1.99',
     ip: ['192.168.1.1', '192.168.2.100'],
+    conflict: false,
+    cidrs: ['192.67.0.1/34', '92.168.1.100/18'],
     long: [3232235777, 3232236132]
   }, {
     result: false,
@@ -437,6 +450,8 @@ const ipRangeCases = [
     count: 65636,
     contains: '192.166.99.222',
     ip: ['192.166.22.1', '192.167.22.100'],
+    conflict: false,
+    cidrs: ['192.67.0.1/22', '192.168.1.100/32'],
     long: [3232110081, 3232175716]
   }, {
     result: false,
@@ -444,6 +459,8 @@ const ipRangeCases = [
     count: 3276900,
     contains: '192.168.99.222',
     ip: ['192.168.1.1', '192.218.1.100'],
+    conflict: false,
+    cidrs: ['192.67.0.1/32', '192.168.1.100/32'],
     long: [3232235777, 3235512676]
   }, {
     result: false,
@@ -451,9 +468,17 @@ const ipRangeCases = [
     count: 100,
     contains: '122.218.1.78',
     ip: ['122.218.1.1', '122.218.1.100'],
+    conflict: false,
+    cidrs: [],
     long: [2061107457, 2061107556]
   }
 ];
+
+describe('isConflict', () => {
+  test.each(ipRangeCases)('判断 $cidrs 是否存在冲突, $result', ({ cidrs, conflict }) => {
+    expect(IPv4.isConflict(cidrs)).toBe(conflict);
+  });
+});
 
 describe('isSameSubnet', () => {
   test.each(ipRangeCases)('判断 $ip、$mask 是否等于在同一子网, $result', ({ ip, mask, result }) => {
@@ -514,3 +539,4 @@ describe('ipRange', () => {
     }
   });
 });
+
