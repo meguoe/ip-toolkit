@@ -31,9 +31,9 @@ export function parseCIDR(cidr: string) {
   if (typeof cidr !== 'string') return false;
 
   const [ip, mask] = cidr.split('/');
-  const prefixLength = +mask;
+  if (ip === undefined || mask === undefined) return false;
 
-  if (prefixLength === undefined) return false;
+  const prefixLength = +mask;
   if (!isValidIP(ip) || isNaN(prefixLength) || prefixLength < 0 || prefixLength > 128) return false;
 
   // 计算网络地址和主机地址位数

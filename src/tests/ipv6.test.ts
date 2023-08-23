@@ -57,3 +57,45 @@ describe('compressedForm', () => {
   test.each(convertFailCases)('判断 $ip 是否为 false', ({ ip }) => expect(IPv6.compressedForm(ip as any)).toBe(false));
   it('将 1::192.168.1.1 转换为 1::c0a8:101 ', () => expect(IPv6.compressedForm('1::192.168.1.1')).toBe('1::c0a8:101'));
 });
+
+// CIDR Range 测试用例
+const cidrConvertCases = [
+  {
+    cidr: 'ff:ff::ff/120',
+    subnet: {
+      firstHost: 'ff:ff::',
+      ipCount: 256n,
+      lastHost: 'ff:ff::ff',
+      prefixLength: 120,
+    }
+  },
+  {
+    cidr: 'ff:ff::ff/64',
+    subnet: {
+      firstHost: 'ff:ff::',
+      ipCount: 18446744073709551616n,
+      lastHost: 'ff:ff::ffff:ffff:ffff:ffff',
+      prefixLength: 64,
+    }
+  },
+];
+
+const cidrFailCases = [
+  {
+    cidr: 212121331,
+  },
+  {
+    cidr: 'ff:ff::ff',
+  },
+  {
+    cidr: 'ff:ff::ff/129',
+  },
+  {
+    cidr: 'gf:ff::ff/120',
+  },
+];
+
+describe('parseCIDR', () => {
+  test.each(cidrConvertCases)('判断 $cidr 是否等于 $subnet', ({ cidr, subnet }) => expect(IPv6.parseCIDR(cidr as any)).toMatchObject(subnet));
+  test.each(cidrFailCases)('判断 $cidr 是否等于 false', ({ cidr }) => expect(IPv6.parseCIDR(cidr as any)).toBe(false));
+});
