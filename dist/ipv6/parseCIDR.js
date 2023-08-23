@@ -21,17 +21,12 @@
      *
      * @example
      * ```
-     * parseCIDR('192.168.0.1/33')    // false
-     * parseCIDR('192.168.0.1/24')
+     * parseCIDR('::9999:ffff/118')
      * // {
-     * //   ipCount: 256,
-     * //   usableCount: 254,
-     * //   cidrMask: 24,
-     * //   subnetMask: '255.255.255.0',
-     * //   firstHost: '192.168.0.1',
-     * //   lastHost: '192.168.0.254',
-     * //   networkAddress: '192.168.0.0',
-     * //   broadcastAddress: '192.168.0.255'
+     * //   ipCount: 1024n,
+     * //   cidrMask: 118,
+     * //   firstHost: '::9999:fc00',
+     * //   lastHost: '::9999:ffff',
      * // }
      * ```
      */
@@ -39,22 +34,23 @@
         if (typeof cidr !== 'string')
             return false;
         const [ip, mask] = cidr.split('/');
-        if (!(0, index_1.isValidIP)(ip) || !(0, index_1.isValidMask)(+mask))
+        if (ip === undefined || mask === undefined)
             return false;
-        const length = 32 - +mask;
+        const prefixLength = +mask;
+        if (!(0, index_1.isValidIP)(ip) || isNaN(prefixLength) || prefixLength < 0 || prefixLength > 128)
+            return false;
+        // 计算网络地址和主机地址位数
+        const length = BigInt(128 - prefixLength);
         const longIP = (0, index_1.ip2long)(ip);
-        const ipCount = Number(1n << BigInt(length));
-        const networkIP = +mask ? ((longIP >> length) << length) >>> 0 : 0;
-        const broadcastIP = (networkIP | ipCount - 1) >>> 0;
+        const ipCount = BigInt(1n << length);
+        const networkIP = (longIP >> length) << length;
+        const firstHost = (0, index_1.long2ip)(networkIP);
+        const lastHost = (0, index_1.long2ip)(networkIP | ipCount - 1n);
         const cidrInfo = {
             ipCount,
-            cidrMask: +mask,
-            usableCount: +mask < 31 ? ipCount - 2 : ipCount,
-            subnetMask: (0, index_1.toSubnetMask)(+mask),
-            networkAddress: +mask < 31 ? (0, index_1.long2ip)(networkIP) : '',
-            broadcastAddress: +mask < 31 ? (0, index_1.long2ip)(broadcastIP) : '',
-            firstHost: (0, index_1.long2ip)(networkIP + (+mask < 31 ? 1 : 0)),
-            lastHost: (0, index_1.long2ip)(broadcastIP - (+mask < 31 ? 1 : 0)),
+            firstHost,
+            lastHost,
+            prefixLength,
         };
         return cidrInfo;
     }

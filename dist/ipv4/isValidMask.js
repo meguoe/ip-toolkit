@@ -23,7 +23,7 @@
      * isValidMask('255.255.256.0') // false
     */
     function isValidMask(mask) {
-        if (typeof mask === 'number') {
+        if (typeof mask === 'number' && !isNaN(mask)) {
             if (mask < 0 || mask > 32)
                 return false;
             return true;

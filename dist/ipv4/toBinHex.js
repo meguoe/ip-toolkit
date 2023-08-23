@@ -12,7 +12,7 @@
     exports.toBinHex = void 0;
     const index_1 = require("./index");
     /**
-     * Convert IPv4 address to binary and hex representations.
+     * Convert IPv4 address to binary and hex
      *
      * @param ip - The IPv4 address string
      * @returns Contains binary and hexadecimal objects, false if invalid
