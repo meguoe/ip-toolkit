@@ -159,6 +159,15 @@ expandedForm('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
 // Compresses an expanded IPv6 address into shortened form.
 compressedForm('2001:0db8:0000:0000:0000:0000:0000:0001')  // '2001:db8::1' 
 
+// Parse CIDR format address into address range info
+parseCIDR('::9999:ffff/118')
+// {
+//   ipCount: 1024n,  
+//   cidrMask: 118, 
+//   firstHost: '::9999:fc00', 
+//   lastHost: '::9999:ffff',
+// }
+
 ```
 
 ## Contributing
