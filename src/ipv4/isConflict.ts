@@ -22,7 +22,7 @@ export function isConflict(cidrs: string[]): boolean {
   const _cidrs = [];
   for (const cidr of cidrs) {
     const subnet = parseCIDR(cidr);
-    if (typeof subnet === 'object') _cidrs.push({ cidr, networkAddress: subnet.networkAddress });
+    if (typeof subnet === 'object') _cidrs.push({ cidr, networkAddress: subnet.networkAddress || subnet.firstHost });
   }
   
   for (let i = 0; i < _cidrs.length; i++) {

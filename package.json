@@ -1,6 +1,6 @@
 {
   "name": "ip-toolkit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A utility library for manipulating IPv4 and IPv6 address in Node.js.",
   "main": "dist/index.js",
   "scripts": {
