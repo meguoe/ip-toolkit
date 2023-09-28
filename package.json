@@ -1,11 +1,19 @@
 {
   "name": "ip-toolkit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A utility library for manipulating IPv4 and IPv6 address in Node.js.",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "test": "jest",
-    "build": "tsc --sourcemap false",
+    "build": "tsup",
     "prepare": "husky install",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",
@@ -58,6 +66,7 @@
     "jest": "^29.6.1",
     "lint-staged": "^13.2.3",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "tsup": "^7.2.0"
   }
 }

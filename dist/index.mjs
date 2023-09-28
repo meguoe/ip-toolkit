@@ -1,4 +1,4 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true});var __defProp = Object.defineProperty;
+var __defProp = Object.defineProperty;
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -515,7 +515,7 @@ function toInverseMask(mask) {
   const notMask = ~longMask >>> 0;
   return long2ip(notMask);
 }
-
-
-
-exports.IPv4 = ipv4_exports; exports.IPv6 = ipv6_exports;
+export {
+  ipv4_exports as IPv4,
+  ipv6_exports as IPv6
+};
