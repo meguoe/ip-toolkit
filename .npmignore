@@ -1,3 +1,7 @@
 src
 coverage
 node_modules
+jest.config.js
+tsup.config.js
+babel.config.js
+commitlint.config.js
