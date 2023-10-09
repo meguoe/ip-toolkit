@@ -158,7 +158,7 @@ declare function isEqual$1(ip1: string | number, ip2: string | number): boolean;
  * contains('192.168.1.0/24', '192.168.1.5')    // true
  * contains('192.168.1.0/24', '192.168.2.5')    // false
  */
-declare function contains(cidr: string, ip: string): boolean;
+declare function contains$1(cidr: string, ip: string): boolean;
 
 /**
  * Verify if an IPv4 address is private
@@ -242,7 +242,7 @@ declare function parseCIDR$1(cidr: string): SubNet$2 | false;
  * isConflict(['192.168.1.0/24', '192.168.2.0/24', '192.168.3.0/24'])  // false
  * ```
  */
-declare function isConflict(cidrs: string[]): boolean;
+declare function isConflict$1(cidrs: string[]): boolean;
 
 interface SubNet$1 {
     cidrMask: number;
@@ -400,10 +400,8 @@ declare function toMaskLength(mask: string): number | false;
  */
 declare function toInverseMask(mask: string | number): string | false;
 
-declare const index$1_contains: typeof contains;
 type index$1_ipRange = ipRange;
 declare const index$1_ipRange: typeof ipRange;
-declare const index$1_isConflict: typeof isConflict;
 declare const index$1_isPrivate: typeof isPrivate;
 declare const index$1_isSameSubnet: typeof isSameSubnet;
 declare const index$1_isValidMask: typeof isValidMask;
@@ -415,11 +413,11 @@ declare const index$1_toMaskLength: typeof toMaskLength;
 declare const index$1_toSubnetMask: typeof toSubnetMask;
 declare namespace index$1 {
   export {
-    index$1_contains as contains,
+    contains$1 as contains,
     ip2long$1 as ip2long,
     index$1_ipRange as ipRange,
     isCIDR$1 as isCIDR,
-    index$1_isConflict as isConflict,
+    isConflict$1 as isConflict,
     isEqual$1 as isEqual,
     index$1_isPrivate as isPrivate,
     index$1_isSameSubnet as isSameSubnet,
@@ -464,7 +462,21 @@ declare function ip2long(ip: string): bigint | false;
 declare function long2ip(ip: bigint): string | false;
 
 /**
- * Validate if the CIDR address is valid
+ * Verify if the IPv6 address is within the CIDR range
+ *
+ * @param cidr - A standard format IPv6 CIDR address
+ * @param ip - The IPv6 address to check
+ * @returns True if within range, otherwise false
+ *
+ * @example
+ *
+ * contains('2001:db8::1/64', '2001:db8::11')    // true
+ * contains('2001:db8::1/128', '2001:db8::11')    // false
+ */
+declare function contains(cidr: string, ip: string): boolean;
+
+/**
+ * Validate if the IPv6 CIDR address is valid
  *
  * @param cidr - The CIDR address string
  * @returns True if valid, false otherwise
@@ -511,6 +523,21 @@ declare function isEqual(ip1: string | bigint, ip2: string | bigint): boolean;
  * ```
  */
 declare function isValidIP(ip: string): boolean;
+
+/**
+ * Check for conflicts in a set of IPv6 CIDR
+ *
+ * @param cidrs - Array of IPv6 CIDR format address string
+ * @returns True if conflict found, false otherwise
+ *
+ * @example
+ *
+ * ```
+ * isConflict(['2001:db8::1/120', '2001:db8::1/122'])  // true
+ * isConflict(['2001:db8::1/120', '3001:db8::1/120'])  // false
+ * ```
+ */
+declare function isConflict(cidrs: string[]): boolean;
 
 interface SubNet {
     ipCount: bigint;
@@ -566,9 +593,11 @@ declare function expandedForm(ip: string): string | false;
 declare function compressedForm(ip: string): string | false;
 
 declare const index_compressedForm: typeof compressedForm;
+declare const index_contains: typeof contains;
 declare const index_expandedForm: typeof expandedForm;
 declare const index_ip2long: typeof ip2long;
 declare const index_isCIDR: typeof isCIDR;
+declare const index_isConflict: typeof isConflict;
 declare const index_isEqual: typeof isEqual;
 declare const index_isValidIP: typeof isValidIP;
 declare const index_long2ip: typeof long2ip;
@@ -576,9 +605,11 @@ declare const index_parseCIDR: typeof parseCIDR;
 declare namespace index {
   export {
     index_compressedForm as compressedForm,
+    index_contains as contains,
     index_expandedForm as expandedForm,
     index_ip2long as ip2long,
     index_isCIDR as isCIDR,
+    index_isConflict as isConflict,
     index_isEqual as isEqual,
     index_isValidIP as isValidIP,
     index_long2ip as long2ip,
