@@ -40,6 +40,12 @@ IPv4.isValidIP('172.16.1.1') // true
 IPv4.isValidIP('172.16.01.1') // true
 IPv4.isValidIP('172.16.01.1', {strict: true}) // false
 
+// Validate if the CIDR address is valid
+IPv4.isCIDR('172.16.1.1/0') // true
+IPv4.isCIDR('172.16.0.1/32') // true
+IPv4.isCIDR('172.16.1.1/33') // false
+IPv4.isCIDR('172.16.01.1/32') // false
+
 // Verify if two IP address are equal
 IPv4.isEqual('192.168.0.1', 3232235521)  // true
 IPv4.isEqual('192.168.1.10', '192.168.1.10') // true
@@ -145,22 +151,27 @@ IPv4.range2.ip2long() // [ 3232235777, 3232235876 ]
 const { IPv6 } = require('ip-toolkit')
 
 // Convert IPv6 address string to number 
-ip2long('::ffff:ffff')   // 4294967295n 
+IPv6.ip2long('::ffff:ffff')   // 4294967295n 
 
 // Convert IPv6 address number to string 
-ip2long(4294967295n)   // ::ffff:ffff
+IPv6.ip2long(4294967295n)   // ::ffff:ffff
 
 // Validate if the IPv6 address is valid
-isValidIP('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8') // true
+IPv6.isValidIP('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8') // true
+
+// Validate if the IPv6 CIDR address is valid
+IPv6.isCIDR('::9999:ffff/0') // true
+IPv6isCIDR('::9999:ffff/128') // true
+IPv6.isCIDR('::9999:ffff/291') // true
 
 // Expands an abbreviated IPv6 address string into its full representation.
-expandedForm('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
+IPv6.expandedForm('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
 
 // Compresses an expanded IPv6 address into shortened form.
-compressedForm('2001:0db8:0000:0000:0000:0000:0000:0001')  // '2001:db8::1' 
+IPv6.compressedForm('2001:0db8:0000:0000:0000:0000:0000:0001')  // '2001:db8::1' 
 
 // Parse CIDR format address into address range info
-parseCIDR('::9999:ffff/118')
+IPv6.parseCIDR('::9999:ffff/118')
 // {
 //   ipCount: 1024n,  
 //   cidrMask: 118, 

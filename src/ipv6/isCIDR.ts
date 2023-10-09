@@ -1,7 +1,7 @@
 import { parseCIDR } from './index';
 
 /**
- * Validate if the CIDR address is valid
+ * Validate if the IPv6 CIDR address is valid
  * 
  * @param cidr - The CIDR address string
  * @returns True if valid, false otherwise

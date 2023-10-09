@@ -113,6 +113,22 @@ declare class ipRange {
 }
 
 /**
+ * Validate if the CIDR address is valid
+ *
+ * @param cidr - The CIDR address string
+ * @returns True if valid, false otherwise
+ *
+ * @example
+ *
+ * ```
+ * isCIDR('192.168.1.0/24')  // true
+ * isCIDR('192.168.1.0/34')  // false
+ * isCIDR('287.168.1.0/34')  // false
+ * ```
+ */
+declare function isCIDR$1(cidr: string): boolean;
+
+/**
  * Verify if two IPv4 address are equal
  * @param ip1 The first IPv4 address to compare
  * @param ip2 The second IPv4 address to compare
@@ -402,6 +418,7 @@ declare namespace index$1 {
     index$1_contains as contains,
     ip2long$1 as ip2long,
     index$1_ipRange as ipRange,
+    isCIDR$1 as isCIDR,
     index$1_isConflict as isConflict,
     isEqual$1 as isEqual,
     index$1_isPrivate as isPrivate,
@@ -445,6 +462,24 @@ declare function ip2long(ip: string): bigint | false;
  * ```
  */
 declare function long2ip(ip: bigint): string | false;
+
+/**
+ * Validate if the CIDR address is valid
+ *
+ * @param cidr - The CIDR address string
+ * @returns True if valid, false otherwise
+ *
+ * @example
+ *
+ * ```
+ * isCIDR('::9999:ffff/0')  // true
+ * isCIDR('::9999:ffff/64')  // true
+ * isCIDR('::9999:ffff/128')  // true
+ * isCIDR('::9999:ffff/129')  // false
+ * isCIDR('::99991:ffff/129')  // false
+ * ```
+ */
+declare function isCIDR(cidr: string): boolean;
 
 /**
  * Verify if two IPv6 address are equal
@@ -533,6 +568,7 @@ declare function compressedForm(ip: string): string | false;
 declare const index_compressedForm: typeof compressedForm;
 declare const index_expandedForm: typeof expandedForm;
 declare const index_ip2long: typeof ip2long;
+declare const index_isCIDR: typeof isCIDR;
 declare const index_isEqual: typeof isEqual;
 declare const index_isValidIP: typeof isValidIP;
 declare const index_long2ip: typeof long2ip;
@@ -542,6 +578,7 @@ declare namespace index {
     index_compressedForm as compressedForm,
     index_expandedForm as expandedForm,
     index_ip2long as ip2long,
+    index_isCIDR as isCIDR,
     index_isEqual as isEqual,
     index_isValidIP as isValidIP,
     index_long2ip as long2ip,
