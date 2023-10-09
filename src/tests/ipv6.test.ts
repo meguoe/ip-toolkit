@@ -62,6 +62,9 @@ describe('compressedForm', () => {
 const cidrConvertCases = [
   {
     cidr: 'ff:ff::ff/120',
+    contains: 'ff:ff::',
+    isContains: true,
+    cidrs: ['2001:db8::/32', '2001:db8::/16'],
     subnet: {
       firstHost: 'ff:ff::',
       ipCount: 256n,
@@ -71,6 +74,9 @@ const cidrConvertCases = [
   },
   {
     cidr: 'ff:ff::ff/64',
+    contains: 'ff:ff::',
+    isContains: true,
+    cidrs: ['2001:db8::1/64', '2001:db8::1/48'],
     subnet: {
       firstHost: 'ff:ff::',
       ipCount: 18446744073709551616n,
@@ -78,26 +84,77 @@ const cidrConvertCases = [
       prefixLength: 64,
     }
   },
+  {
+    cidr: 'ff:ff::ff/128',
+    contains: 'ff:ffaa::',
+    isContains: false,
+    cidrs: ['2001:db8::/32', 'fe80::/10', 'fd00::/8'],
+    subnet: {
+      firstHost: 'ff:ff::ff',
+      ipCount: 1n,
+      lastHost: 'ff:ff::ff',
+      prefixLength: 128,
+    }
+  },
+  {
+    cidr: 'ff:ff::ff/128',
+    contains: 'ff:ffaa::',
+    isContains: false,
+    cidrs: [],
+    subnet: {
+      firstHost: 'ff:ff::ff',
+      ipCount: 1n,
+      lastHost: 'ff:ff::ff',
+      prefixLength: 128,
+    }
+  },
+  {
+    cidr: 'ff:ff::ff/128',
+    contains: 'ff:ffaa::',
+    isContains: false,
+    cidrs: 'ff:ff::ff',
+    subnet: {
+      firstHost: 'ff:ff::ff',
+      ipCount: 1n,
+      lastHost: 'ff:ff::ff',
+      prefixLength: 128,
+    }
+  },
 ];
 
 const cidrFailCases = [
   {
     cidr: 212121331,
+    contains: 'ff:ff::',
   },
   {
     cidr: 'ff:ff::ff',
+    contains: 'ff:ff::',
   },
   {
     cidr: 'ff:ff::ff/129',
+    contains: 'ff:ff::',
   },
   {
     cidr: 'gf:ff::ff/120',
+    contains: 'ff:ff::',
   },
 ];
+
+describe('contains', () => {
+  test.each(cidrConvertCases)('判断 $cidr 是否包含 $contains', ({ cidr, contains, isContains }) => expect(IPv6.contains(cidr as any, contains as any)).toBe(isContains));
+  test.each(cidrFailCases)('判断 $cidr 是否包含 $contains', ({ cidr, contains }) => expect(IPv6.contains(cidr as any, contains as any)).toBe(false));
+});
 
 describe('isCIDR', () => {
   test.each(cidrConvertCases)('判断 $cidr 是否等于 true', ({ cidr }) => expect(IPv6.isCIDR(cidr)).toBe(true));
   test.each(cidrFailCases)('判断 $cidr 是否为 false', ({ cidr }) => expect(IPv6.isCIDR(cidr as any)).toBe(false));
+});
+
+describe('isConflict', () => {
+  test.each(cidrConvertCases)('判断 $cidrs 是否存在冲突, $isContains', ({ cidrs, isContains }) => {
+    expect(IPv6.isConflict(cidrs as any)).toBe(isContains);
+  });
 });
 
 describe('parseCIDR', () => {
