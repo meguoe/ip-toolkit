@@ -1,6 +1,7 @@
 export * from './ip2long';
 export * from './long2ip';
 export * from './ipRange';
+export * from './isCIDR';
 export * from './isEqual';
 export * from './contains';
 export * from './isPrivate';

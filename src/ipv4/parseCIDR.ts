@@ -40,7 +40,7 @@ export function parseCIDR(cidr: string): SubNet | false {
   if (typeof cidr !== 'string') return false;
   
   const [ip, mask] = cidr.split('/');
-  if (!isValidIP(ip) || !isValidMask(+mask)) return false;
+  if (!isValidIP(ip, { strict: true }) || !isValidMask(+mask)) return false;
   
   const length = 32 - +mask;
   const longIP = ip2long(ip) as number;

@@ -26,6 +26,8 @@ const ipConvertCases = [
       decimal: 0,
       binary: '00000000000000000000000000000000'
     },
+    isCidr: true,
+    cidr: '192.168.1.1/0',
     v6format: {
       comperssed: '::ffff:0:0',
       expanded: '0000:0000:0000:0000:0000:ffff:0000:0000',
@@ -42,6 +44,8 @@ const ipConvertCases = [
       decimal: 16777217,
       binary: '00000001000000000000000000000001'
     },
+    isCidr: true,
+    cidr: '192.168.1.1/32',
     v6format: {
       comperssed: '::ffff:100:1',
       expanded: '0000:0000:0000:0000:0000:ffff:0100:0001',
@@ -58,6 +62,8 @@ const ipConvertCases = [
       decimal: 167772161,
       binary: '00001010000000000000000000000001'
     },
+    isCidr: false,
+    cidr: '192.168.1.1/33',
     v6format: {
       comperssed: '::ffff:a00:1',
       expanded: '0000:0000:0000:0000:0000:ffff:0a00:0001',
@@ -74,6 +80,8 @@ const ipConvertCases = [
       decimal: 185204737,
       binary: '00001011000010100000000000000001'
     },
+    isCidr: false,
+    cidr: '257.168.1.1/12',
     v6format: {
       comperssed: '::ffff:b0a:1',
       expanded: '0000:0000:0000:0000:0000:ffff:0b0a:0001',
@@ -90,6 +98,8 @@ const ipConvertCases = [
       decimal: 2130706433,
       binary: '01111111000000000000000000000001'
     },
+    isCidr: true,
+    cidr: '192.168.1.1/23',
     v6format: {
       comperssed: '::ffff:7f00:1',
       expanded: '0000:0000:0000:0000:0000:ffff:7f00:0001',
@@ -106,6 +116,8 @@ const ipConvertCases = [
       decimal: 2147483649,
       binary: '10000000000000000000000000000001'
     },
+    isCidr: true,
+    cidr: '192.168.222.1/23',
     v6format: {
       comperssed: '::ffff:8000:1',
       expanded: '0000:0000:0000:0000:0000:ffff:8000:0001',
@@ -122,6 +134,8 @@ const ipConvertCases = [
       decimal: 2886729729,
       binary: '10101100000100000000000000000001'
     },
+    isCidr: false,
+    cidr: '0.0.0.1/23',
     v6format: {
       comperssed: '::ffff:ac10:1',
       expanded: '0000:0000:0000:0000:0000:ffff:ac10:0001',
@@ -138,6 +152,8 @@ const ipConvertCases = [
       decimal: 2887781121,
       binary: '10101100001000000000101100000001'
     },
+    isCidr: true,
+    cidr: '1.0.0.0/23',
     v6format: {
       comperssed: '::ffff:ac20:b01',
       expanded: '0000:0000:0000:0000:0000:ffff:ac20:0b01',
@@ -154,6 +170,8 @@ const ipConvertCases = [
       decimal: 2852003873,
       binary: '10101001111111100010000000100001'
     },
+    isCidr: true,
+    cidr: '1.0.0.0/23',
     v6format: {
       comperssed: '::ffff:a9fe:2021',
       expanded: '0000:0000:0000:0000:0000:ffff:a9fe:2021',
@@ -170,6 +188,8 @@ const ipConvertCases = [
       decimal: 2852069409,
       binary: '10101001111111110010000000100001'
     },
+    isCidr: false,
+    cidr: '1.0.00.0/23',
     v6format: {
       comperssed: '::ffff:a9ff:2021',
       expanded: '0000:0000:0000:0000:0000:ffff:a9ff:2021',
@@ -186,6 +206,8 @@ const ipConvertCases = [
       decimal: 3232235521,
       binary: '11000000101010000000000000000001'
     },
+    isCidr: true,
+    cidr: '1.0.0.0/24',
     v6format: {
       comperssed: '::ffff:c0a8:1',
       expanded: '0000:0000:0000:0000:0000:ffff:c0a8:0001',
@@ -202,6 +224,8 @@ const ipConvertCases = [
       decimal: 3249012737,
       binary: '11000001101010000000000000000001'
     },
+    isCidr: true,
+    cidr: '1.0.0.0/16',
     v6format: {
       comperssed: '::ffff:c1a8:1',
       expanded: '0000:0000:0000:0000:0000:ffff:c1a8:0001',
@@ -218,6 +242,8 @@ const ipConvertCases = [
       decimal: 4294967295,
       binary: '11111111111111111111111111111111'
     },
+    isCidr: false,
+    cidr: 12123123123,
     v6format: {
       comperssed: '::ffff:ffff:ffff',
       expanded: '0000:0000:0000:0000:0000:ffff:ffff:ffff',
@@ -226,6 +252,10 @@ const ipConvertCases = [
     isPrivate: false
   }
 ];
+
+describe('isCIDR', () => {
+  test.each(ipConvertCases)('判断 $cidr 是否等于 $isCidr', ({ cidr, isCidr }) => expect(IPv4.isCIDR(cidr as any)).toBe(isCidr));
+});
 
 describe('isEqual', () => {
   test.each(ipConvertCases)('判断 $ip 是否等于 $long', ({ ip, long }) => expect(IPv4.isEqual(ip, long)).toBe(true));

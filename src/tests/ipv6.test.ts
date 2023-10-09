@@ -95,6 +95,11 @@ const cidrFailCases = [
   },
 ];
 
+describe('isCIDR', () => {
+  test.each(cidrConvertCases)('判断 $cidr 是否等于 true', ({ cidr }) => expect(IPv6.isCIDR(cidr)).toBe(true));
+  test.each(cidrFailCases)('判断 $cidr 是否为 false', ({ cidr }) => expect(IPv6.isCIDR(cidr as any)).toBe(false));
+});
+
 describe('parseCIDR', () => {
   test.each(cidrConvertCases)('判断 $cidr 是否等于 $subnet', ({ cidr, subnet }) => expect(IPv6.parseCIDR(cidr as any)).toMatchObject(subnet));
   test.each(cidrFailCases)('判断 $cidr 是否等于 false', ({ cidr }) => expect(IPv6.parseCIDR(cidr as any)).toBe(false));
