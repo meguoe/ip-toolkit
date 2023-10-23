@@ -139,6 +139,14 @@ const cidrFailCases = [
     cidr: 'gf:ff::ff/120',
     contains: 'ff:ff::',
   },
+  {
+    cidr: 'gf:ff::ff/',
+    contains: 'ff:ff::',
+  },
+  {
+    cidr: 'gf:ff::ff',
+    contains: 'ff:ff::',
+  },
 ];
 
 describe('contains', () => {

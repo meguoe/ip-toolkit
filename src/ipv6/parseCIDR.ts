@@ -31,7 +31,7 @@ export function parseCIDR(cidr: string) {
   if (typeof cidr !== 'string') return false;
 
   const [ip, mask] = cidr.split('/');
-  if (ip === undefined || mask === undefined) return false;
+  if (ip === undefined || mask === undefined || mask === '') return false;
 
   const prefixLength = +mask;
   if (!isValidIP(ip) || isNaN(prefixLength) || prefixLength < 0 || prefixLength > 128) return false;

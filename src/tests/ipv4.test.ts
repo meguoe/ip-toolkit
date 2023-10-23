@@ -224,8 +224,8 @@ const ipConvertCases = [
       decimal: 3249012737,
       binary: '11000001101010000000000000000001'
     },
-    isCidr: true,
-    cidr: '1.0.0.0/16',
+    isCidr: false,
+    cidr: '1.0.0.0/',
     v6format: {
       comperssed: '::ffff:c1a8:1',
       expanded: '0000:0000:0000:0000:0000:ffff:c1a8:0001',
