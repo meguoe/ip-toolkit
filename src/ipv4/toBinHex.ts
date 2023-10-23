@@ -16,8 +16,8 @@ interface BinHex {
  * ```
  * const results = toBinHex('192.168.0.1');
  * // results = {
- * //   hex: 'c0a80001',
- * //   decimal: 0x3232235521
+ * //   hex: '0xc0a80001',
+ * //   decimal: 3232235521
  * //   binary: '11000000101010000000000000001' 
  * // }
  * ```
