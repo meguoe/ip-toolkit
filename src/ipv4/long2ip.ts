@@ -12,7 +12,7 @@
  */
 
 export function long2ip(ip: number): string | false {
-  if (typeof ip !== 'number') return false;
+  if (typeof ip !== 'number' || isNaN(ip)) return false;
   if (ip >= 0 && ip <= 4294967295) {
     const parts: number[] = [];
     for (let i = 3; i >= 0; i--) parts.push((ip >>> (i * 8)) & 255);

@@ -35,12 +35,12 @@ IPv4.ip2long("192.168.0.257") // false
 IPv4.long2ip(3232235521) // 192.168.0.1
 IPv4.long2ip(-1) // false
 
-// Validate if the IP address is valid
+// Verify if the IP address is valid
 IPv4.isValidIP('172.16.1.1') // true
 IPv4.isValidIP('172.16.01.1') // true
 IPv4.isValidIP('172.16.01.1', {strict: true}) // false
 
-// Validate if the CIDR address is valid
+// Verify if the CIDR address is valid
 IPv4.isCIDR('172.16.1.1/0') // true
 IPv4.isCIDR('172.16.0.1/32') // true
 IPv4.isCIDR('172.16.1.1/33') // false
@@ -156,13 +156,13 @@ IPv6.ip2long('::ffff:ffff')   // 4294967295n
 // Convert IPv6 address number to string 
 IPv6.ip2long(4294967295n)   // ::ffff:ffff
 
-// Validate if the IPv6 address is valid
+// Verify if the IPv6 address is valid
 IPv6.isValidIP('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8') // true
 
-// Validate if the IPv6 CIDR address is valid
+// Verify if the IPv6 CIDR address is valid
 IPv6.isCIDR('::9999:ffff/0') // true
-IPv6isCIDR('::9999:ffff/128') // true
-IPv6.isCIDR('::9999:ffff/291') // true
+IPv6.isCIDR('::9999:ffff/128') // true
+IPv6.isCIDR('::9999:ffff/291') // false
 
 // Expands an abbreviated IPv6 address string into its full representation.
 IPv6.expandedForm('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
