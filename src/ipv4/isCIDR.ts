@@ -1,13 +1,12 @@
 import { parseCIDR } from './index';
 
 /**
- * Validate if the CIDR address is valid
+ * Verify if the CIDR address is valid
  * 
  * @param cidr - The CIDR address string
  * @returns True if valid, false otherwise
  * 
  * @example
- * 
  * ```
  * isCIDR('192.168.1.0/24')  // true
  * isCIDR('192.168.1.0/34')  // false

@@ -7,7 +7,6 @@ import { contains, parseCIDR } from './index';
  * @returns True if conflict found, false otherwise
  * 
  * @example
- * 
  * ```
  * isConflict(['2001:db8::1/120', '2001:db8::1/122'])  // true
  * isConflict(['2001:db8::1/120', '3001:db8::1/120'])  // false

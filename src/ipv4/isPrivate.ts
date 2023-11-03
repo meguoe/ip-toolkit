@@ -7,7 +7,6 @@ import { isValidIP } from './isValidIP';
  * @returns True if private IPv4, false otherwise
  *
  * @example
- * 
  * ```
  * isPrivate('192.168.0.1') // returns true
  * isPrivate('114.114.114.114') // returns false 

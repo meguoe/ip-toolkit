@@ -7,7 +7,6 @@ import { contains, parseCIDR } from './index';
  * @returns True if conflict found, false otherwise
  * 
  * @example
- * 
  * ```
  * isConflict(['192.168.1.0/24', '192.168.0.0/16'])  // true
  * isConflict(['192.168.1.0/24', '192.168.2.0/24'])  // false

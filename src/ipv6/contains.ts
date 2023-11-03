@@ -8,7 +8,6 @@ import { ip2long, isValidIP, parseCIDR } from './index';
  * @returns True if within range, otherwise false
  *
  * @example
- * 
  * contains('2001:db8::1/64', '2001:db8::11')    // true
  * contains('2001:db8::1/128', '2001:db8::11')    // false
  */

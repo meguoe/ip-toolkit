@@ -1,13 +1,12 @@
 import { parseCIDR } from './index';
 
 /**
- * Validate if the IPv6 CIDR address is valid
+ * Verify if the IPv6 CIDR address is valid
  * 
  * @param cidr - The CIDR address string
  * @returns True if valid, false otherwise
  * 
  * @example
- * 
  * ```
  * isCIDR('::9999:ffff/0')  // true
  * isCIDR('::9999:ffff/64')  // true

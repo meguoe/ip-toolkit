@@ -8,9 +8,10 @@ import { ipRange, isValidIP, parseCIDR } from './index';
  * @returns True if within range, otherwise false
  *
  * @example
- * 
+ * ```
  * contains('192.168.1.0/24', '192.168.1.5')    // true
  * contains('192.168.1.0/24', '192.168.2.5')    // false
+ * ```
  */
 
 export function contains(cidr: string, ip: string): boolean {

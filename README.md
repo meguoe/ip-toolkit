@@ -25,6 +25,35 @@ $ yarn install --save ip-toolkit
 ## IPv4 Usage
 
 ```js
+
+
+const { IP } = require('ip-toolkit')
+
+// Convert IPv4 or IPv6 address string to number 
+IP.ip2long("192.168.0.1") // 3232235521
+IP.ip2long('::ffff:ffff')   // 4294967295n 
+
+// Convert IPv4 or IPv6 number to address string
+IP.long2ip(3232235521) // "192.168.0.1"
+IP.long2ip(4294967295n)   // '::ffff:ffff' 
+
+// Verify if the IPv4 or IPv6 address is valid
+IP.isValidIP('172.16.1.1') // true
+IP.isValidIP('f16c:f7ec::36b8') // true
+
+// Verify if the IPv4 or IPv6 CIDR address is valid
+IP.isCIDR('172.16.1.1/0') // true
+IP.isCIDR('ff::99:ff/64') // true
+
+// Verify if a set of IPv4 or IPv6 CIDR ranges have conflicts
+IP.isConflict(['192.168.1.0/24', '192.168.0.0/16'])  // true
+IP.isConflict(['2001:1db8::/32', '2001:1db8::/16'])  // true
+
+//  Verify if the IPv4 or IPv6 address is within the CIDR range
+IP.contains('192.168.1.0/24', '192.168.1.5')    // true
+IP.contains('2001:db8::1/64', '2001:db8::11')    // true
+
+
 const { IPv4 } = require('ip-toolkit')
 
 // Convert IP address string to number 
@@ -163,6 +192,11 @@ IPv6.isValidIP('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8') // true
 IPv6.isCIDR('::9999:ffff/0') // true
 IPv6.isCIDR('::9999:ffff/128') // true
 IPv6.isCIDR('::9999:ffff/291') // false
+
+
+// Verify if a set of CIDR ranges have conflicts
+IPv6.isConflict(['2001:db8::1/120', '2001:db8::1/122'])  // true
+IPv6.isConflict(['2001:db8::11/64', '2001:db8::11/48'])  // true
 
 // Expands an abbreviated IPv6 address string into its full representation.
 IPv6.expandedForm('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'

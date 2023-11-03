@@ -1,5 +1,5 @@
 /**
- * Validate if the IPv6 address is valid
+ * Verify if the IPv6 address is valid
  *
  * @param ip - The IPv6 address string
  * @returns True if valid, false otherwise

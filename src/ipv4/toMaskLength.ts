@@ -7,8 +7,10 @@ import { ip2long, isValidMask } from './index';
  * @returns The mask length or false if invalid 
  * 
  * @example
+ * ```
  * toMaskLength('255.255.255.0') // 24 
  * toMaskLength('255.255.256.0') // false
+ * ```
 */
 
 export function toMaskLength(mask: string): number | false {

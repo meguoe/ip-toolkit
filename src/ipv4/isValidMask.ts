@@ -3,13 +3,15 @@ import { ip2long } from './index';
 /**
  * Verify if the subnet mask is valid
  * 
- * @param  mask - The subnet mask to validate
+ * @param  mask - The subnet mask to valid
  * @returns True if valid, otherwise false
  * 
  * @example
+ * ```
  * isValidMask(24) // true
  * isValidMask('255.255.255.0') // true 
  * isValidMask('255.255.256.0') // false
+ * ```
 */
 
 export function isValidMask(mask: string | number): boolean {

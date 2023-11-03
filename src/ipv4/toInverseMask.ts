@@ -6,7 +6,6 @@ import { ip2long, isValidMask, long2ip, toSubnetMask } from './index';
  * @returns The inverse mask, or false if invalid
  *
  * @example
- * 
  * ```
  * toInverseMask(24);  // '0.0.0.255'
  * toInverseMask(16);  // '0.0.255.255'
