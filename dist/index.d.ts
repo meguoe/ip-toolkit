@@ -1,4 +1,100 @@
 /**
+ * Convert IPv4 or IPv6 address string to number
+ *
+ * @param ip - The IPv4 or IPv6 address string
+ * @returns The converted IPv4 or IPv6 number or false if invalid
+ *
+ * @example
+ * ```
+ * ip2long('192.168.0.1')   // 3232235521
+ * ip2long('::ffff:9999')   // 4294941081
+ * ```
+ */
+declare function ip2long$2(ip: string): number | bigint | false;
+/**
+ * Convert IPv4 or IPv6 number to address string
+ *
+ * @param ip - The IPv4 or IPv6 number
+ * @returns The converted IPv4 or IPv6 address string or false if invalid
+ *
+ * @example
+ * ```
+ * ip2long('192.168.0.1')   // 3232235521
+ * ip2long('::ffff:9999')   // 4294941081
+ * ```
+ */
+declare function long2ip$2(ip: number | bigint): string | false;
+/**
+ * Verify if the CIDR address is valid
+ *
+ * @param cidr - The CIDR address string
+ * @returns True if valid, false otherwise
+ *
+ * @example
+ * ```
+ * isCIDR('192.168.1.0/24')  // true
+ * isCIDR('192.168.1.0/34')  // false
+ * isCIDR('287.168.1.0/34')  // false
+ * ```
+ */
+declare function isCIDR$2(cidr: string): boolean;
+/**
+ * Verify if the IPv4 or IPv6 address is valid
+ *
+ * @param ip - The IPv4 or IPv6 address string
+ * @returns True if valid, false otherwise
+ *
+ * @example
+ * ```
+ * isValidIP('192.168.1.99') // true
+ * isValidIP('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8') // true
+ * ```
+ */
+declare function isValidIP$2(ip: string): boolean;
+/**
+ * Check for conflicts in a set of CIDR
+ *
+ * @param cidrs - Array of CIDR format address string
+ * @returns True if conflict found, false otherwise
+ *
+ * @example
+ * ```
+ * isConflict(['192.168.1.0/24', '192.168.0.0/24'])  // false
+ * isConflict(['192.168.1.0/24', '2001:db8::1/122'])  // false
+ * isConflict(['2001:db8::1/120', '2001:db8::1/122'])  // true
+ * isConflict(['192.168.1.0/24', '192.168.1.0/28', '2001:db8::1/122'])  // true
+ * ```
+ */
+declare function isConflict$2(cidrs: string[]): boolean;
+/**
+ * Verify if the IPv4 or IPv6 address is within the CIDR range
+ *
+ * @param cidr - A standard format IPv4 or IPv6 CIDR address
+ * @param ip - The IPv4 or IPv6 address to check
+ * @returns True if within range, otherwise false
+ *
+ * @example
+ * ```
+ * contains('192.168.1.0/24', '192.168.1.5')    // true
+ * contains('192.168.1.0/24', '192.168.2.5')    // false
+ * contains('2001:db8::1/64', '2001:db8::11')    // true
+ * contains('2001:db8::1/128', '2001:db8::11')    // false
+ * ```
+ */
+declare function contains$2(cidr: string, ip: string): boolean;
+
+declare namespace index$2 {
+  export {
+    contains$2 as contains,
+    ip2long$2 as ip2long,
+    isCIDR$2 as isCIDR,
+    isConflict$2 as isConflict,
+    isValidIP$2 as isValidIP,
+    long2ip$2 as long2ip,
+  };
+}
+
+/**
  * Convert IPv4 address string to number
  *
  * @param ip - The IPv4 address string
@@ -113,13 +209,12 @@ declare class ipRange {
 }
 
 /**
- * Validate if the CIDR address is valid
+ * Verify if the CIDR address is valid
  *
  * @param cidr - The CIDR address string
  * @returns True if valid, false otherwise
  *
  * @example
- *
  * ```
  * isCIDR('192.168.1.0/24')  // true
  * isCIDR('192.168.1.0/34')  // false
@@ -154,9 +249,10 @@ declare function isEqual$1(ip1: string | number, ip2: string | number): boolean;
  * @returns True if within range, otherwise false
  *
  * @example
- *
+ * ```
  * contains('192.168.1.0/24', '192.168.1.5')    // true
  * contains('192.168.1.0/24', '192.168.2.5')    // false
+ * ```
  */
 declare function contains$1(cidr: string, ip: string): boolean;
 
@@ -166,7 +262,6 @@ declare function contains$1(cidr: string, ip: string): boolean;
  * @returns True if private IPv4, false otherwise
  *
  * @example
- *
  * ```
  * isPrivate('192.168.0.1') // returns true
  * isPrivate('114.114.114.114') // returns false
@@ -175,7 +270,7 @@ declare function contains$1(cidr: string, ip: string): boolean;
 declare function isPrivate(ip: string): boolean;
 
 /**
- * Validate if the IPv4 address is valid
+ * Verify if the IPv4 address is valid
  *
  * @param ip - The IPv4 address string
  * @param options - Enable strict mode to disallow leading 0s, false by default
@@ -234,7 +329,6 @@ declare function parseCIDR$1(cidr: string): SubNet$2 | false;
  * @returns True if conflict found, false otherwise
  *
  * @example
- *
  * ```
  * isConflict(['192.168.1.0/24', '192.168.0.0/16'])  // true
  * isConflict(['192.168.1.0/24', '192.168.2.0/24'])  // false
@@ -282,13 +376,15 @@ declare function parseSubnet(ip: string, mask: string): SubNet$1 | false;
 /**
  * Verify if the subnet mask is valid
  *
- * @param  mask - The subnet mask to validate
+ * @param  mask - The subnet mask to valid
  * @returns True if valid, otherwise false
  *
  * @example
+ * ```
  * isValidMask(24) // true
  * isValidMask('255.255.255.0') // true
  * isValidMask('255.255.256.0') // false
+ * ```
 */
 declare function isValidMask(mask: string | number): boolean;
 
@@ -379,8 +475,10 @@ declare function toSubnetMask(length: number): string | false;
  * @returns The mask length or false if invalid
  *
  * @example
+ * ```
  * toMaskLength('255.255.255.0') // 24
  * toMaskLength('255.255.256.0') // false
+ * ```
 */
 declare function toMaskLength(mask: string): number | false;
 
@@ -390,7 +488,6 @@ declare function toMaskLength(mask: string): number | false;
  * @returns The inverse mask, or false if invalid
  *
  * @example
- *
  * ```
  * toInverseMask(24);  // '0.0.0.255'
  * toInverseMask(16);  // '0.0.255.255'
@@ -469,20 +566,18 @@ declare function long2ip(ip: bigint): string | false;
  * @returns True if within range, otherwise false
  *
  * @example
- *
  * contains('2001:db8::1/64', '2001:db8::11')    // true
  * contains('2001:db8::1/128', '2001:db8::11')    // false
  */
 declare function contains(cidr: string, ip: string): boolean;
 
 /**
- * Validate if the IPv6 CIDR address is valid
+ * Verify if the IPv6 CIDR address is valid
  *
  * @param cidr - The CIDR address string
  * @returns True if valid, false otherwise
  *
  * @example
- *
  * ```
  * isCIDR('::9999:ffff/0')  // true
  * isCIDR('::9999:ffff/64')  // true
@@ -512,7 +607,7 @@ declare function isCIDR(cidr: string): boolean;
 declare function isEqual(ip1: string | bigint, ip2: string | bigint): boolean;
 
 /**
- * Validate if the IPv6 address is valid
+ * Verify if the IPv6 address is valid
  *
  * @param ip - The IPv6 address string
  * @returns True if valid, false otherwise
@@ -531,7 +626,6 @@ declare function isValidIP(ip: string): boolean;
  * @returns True if conflict found, false otherwise
  *
  * @example
- *
  * ```
  * isConflict(['2001:db8::1/120', '2001:db8::1/122'])  // true
  * isConflict(['2001:db8::1/120', '3001:db8::1/120'])  // false
@@ -617,4 +711,4 @@ declare namespace index {
   };
 }
 
-export { index$1 as IPv4, index as IPv6 };
+export { index$2 as IP, index$1 as IPv4, index as IPv6 };
