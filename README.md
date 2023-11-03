@@ -215,6 +215,14 @@ IPv6.parseCIDR('::9999:ffff/118')
 
 ```
 
+## Raycast Extension
+
+This project has been extended on [Raycast](https://www.raycast.com/meguoe/ip-tools) !
+
+<img alt="ip-toolkit" src="https://files.raycast.com/k604hs2ove2vao7k0w5qcsg4y7ze">
+<img alt="ip-toolkit" src="https://files.raycast.com/v0hr98f0irjeujn61lm5tiw6i9b4">
+<img alt="ip-toolkit" src="https://files.raycast.com/4gvabb4nd4qq0muso52qo37otzli">
+
 ## Contributing
 
 Issues and pull requests are welcome!
