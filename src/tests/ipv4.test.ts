@@ -134,7 +134,7 @@ const ipConvertCases = [
       decimal: 2886729729,
       binary: '10101100000100000000000000000001'
     },
-    isCidr: false,
+    isCidr: true,
     cidr: '0.0.0.1/23',
     v6format: {
       comperssed: '::ffff:ac10:1',
@@ -188,7 +188,7 @@ const ipConvertCases = [
       decimal: 2852069409,
       binary: '10101001111111110010000000100001'
     },
-    isCidr: false,
+    isCidr: true,
     cidr: '1.0.00.0/23',
     v6format: {
       comperssed: '::ffff:a9ff:2021',
@@ -331,6 +331,22 @@ const cidrConvertCases = [
     ip: '192.168.1.0',
     mask: '0.0.0.0',
     cidr: '192.168.1.0/0',
+    contains: '33.33.33.33',
+    subnet: {
+      cidrMask: 0,
+      ipCount: 4294967296,
+      usableCount: 4294967294,
+      subnetMask: '0.0.0.0',
+      firstHost: '0.0.0.1',
+      lastHost: '255.255.255.254',
+      networkAddress: '0.0.0.0',
+      broadcastAddress: '255.255.255.255'
+    }
+  },
+  {
+    ip: '192.168.1.0',
+    mask: '0.0.0.0',
+    cidr: '0.0.0.0/0',
     contains: '33.33.33.33',
     subnet: {
       cidrMask: 0,
