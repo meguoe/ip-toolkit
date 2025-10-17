@@ -2,7 +2,7 @@
  * Convert IPv4 or IPv6 address string to number
  *
  * @param ip - The IPv4 or IPv6 address string
- * @returns The converted IPv4 or IPv6 number or false if invalid
+ * @returns The converted IPv4 or IPv6 number or undefined if invalid
  *
  * @example
  * ```
@@ -10,12 +10,12 @@
  * ip2long('::ffff:9999')   // 4294941081
  * ```
  */
-declare function ip2long$2(ip: string): number | bigint | false;
+declare function ip2long$2(ip: string): number | bigint | undefined;
 /**
  * Convert IPv4 or IPv6 number to address string
  *
  * @param ip - The IPv4 or IPv6 number
- * @returns The converted IPv4 or IPv6 address string or false if invalid
+ * @returns The converted IPv4 or IPv6 address string or undefined if invalid
  *
  * @example
  * ```
@@ -23,7 +23,7 @@ declare function ip2long$2(ip: string): number | bigint | false;
  * ip2long('::ffff:9999')   // 4294941081
  * ```
  */
-declare function long2ip$2(ip: number | bigint): string | false;
+declare function long2ip$2(ip: number | bigint): string | undefined;
 /**
  * Verify if the CIDR address is valid
  *
@@ -96,26 +96,18 @@ declare function contains$2(cidr: string, ip: string): boolean;
  * contains('20011:db8::11')   // invalid
  * ```
  */
-declare function ipVersion(ip: string): 'IPv4' | 'IPv6' | 'invalid';
+declare function ipVersion(ip: string): "IPv4" | "IPv6" | "invalid";
 
 declare const index$2_ipVersion: typeof ipVersion;
 declare namespace index$2 {
-  export {
-    contains$2 as contains,
-    ip2long$2 as ip2long,
-    index$2_ipVersion as ipVersion,
-    isCIDR$2 as isCIDR,
-    isConflict$2 as isConflict,
-    isValidIP$2 as isValidIP,
-    long2ip$2 as long2ip,
-  };
+  export { contains$2 as contains, ip2long$2 as ip2long, index$2_ipVersion as ipVersion, isCIDR$2 as isCIDR, isConflict$2 as isConflict, isValidIP$2 as isValidIP, long2ip$2 as long2ip };
 }
 
 /**
  * Convert IPv4 address string to number
  *
  * @param ip - The IPv4 address string
- * @returns The converted IPv4 number or false if invalid
+ * @returns The converted IPv4 number or undefined if invalid
  *
  * @example
  * ```
@@ -123,13 +115,13 @@ declare namespace index$2 {
  * ip2long('192.168.0.257') // false
  * ```
  */
-declare function ip2long$1(ip: string): number | false;
+declare function ip2long$1(ip: string): number | undefined;
 
 /**
  * Convert IPv4 number to address string
  *
  * @param ip - The IPv4 number
- * @returns The converted IPv4 address string or false if invalid
+ * @returns The converted IPv4 address string or undefined if invalid
  *
  * @example
  * ```
@@ -137,7 +129,7 @@ declare function ip2long$1(ip: string): number | false;
  * long2ip(-1) // false
  * ```
  */
-declare function long2ip$1(ip: number): string | false;
+declare function long2ip$1(ip: number): string | undefined;
 
 /**
  * IPv4 address range class for representing a range defined by a start and end IPv4 address. Valid values are from 0 to 4294967295.
@@ -319,7 +311,7 @@ interface SubNet$2 {
  * NetworkAddress and broadcastAddress are valid when mask < 31
  *
  * @param cidr - The CIDR format address string
- * @returns The parsed address range object or false if invalid
+ * @returns The parsed address range object or undefined if invalid
  *
  * @example
  * ```
@@ -337,7 +329,7 @@ interface SubNet$2 {
  * // }
  * ```
  */
-declare function parseCIDR$1(cidr: string): SubNet$2 | false;
+declare function parseCIDR$1(cidr: string): SubNet$2 | undefined;
 
 /**
  * Check for conflicts in a set of CIDR
@@ -370,11 +362,11 @@ interface SubNet$1 {
  *
  * @param ip - The IPv4 address string
  * @param mask - The subnet mask string
- * @returns The parsed CIDR info object or false if invalid
+ * @returns The parsed CIDR info object or undefined if invalid
  *
  * @example
  * ```
- * parseSubnet('192.168.0.1', '1.255.255.0')    // false
+ * parseSubnet('192.168.0.1', '1.255.255.0')    // undefined
  * parseSubnet('192.168.0.1', '255.255.255.0')
  * // {
  * //   ipCount: 256,
@@ -387,8 +379,8 @@ interface SubNet$1 {
  * //   broadcastAddress: '192.168.0.255'
  * // }
  * ```
-*/
-declare function parseSubnet(ip: string, mask: string): SubNet$1 | false;
+ */
+declare function parseSubnet(ip: string, mask: string): SubNet$1 | undefined;
 
 /**
  * Verify if the subnet mask is valid
@@ -432,7 +424,7 @@ interface BinHex {
  * Convert IPv4 address to binary and hex
  *
  * @param ip - The IPv4 address string
- * @returns Contains binary and hexadecimal objects, false if invalid
+ * @returns Contains binary and hexadecimal objects, undefined if invalid
  *
  * @example
  * ```
@@ -444,18 +436,18 @@ interface BinHex {
  * // }
  * ```
  */
-declare function toBinHex(ip: string): BinHex | false;
+declare function toBinHex(ip: string): BinHex | undefined;
 
 interface Result {
     mapped: string;
     expanded: string;
-    comperssed: string;
+    compressed: string;
 }
 /**
  * Converts IPv4 address to IPv6 format
  *
  * @param ip - The IPv4 address string (validation requires strict mode)
- * @returns The IPv6 address object or false if invalid
+ * @returns The IPv6 address object or undefined if invalid
  *
  * @example
  * ```
@@ -467,13 +459,13 @@ interface Result {
  * // }
  * ```
  */
-declare function toIPv6Format(ip: string): Result | false;
+declare function toIPv6Format(ip: string): Result | undefined;
 
 /**
  * Convert mask length to subnet mask string
  *
  * @param length - The mask length number
- * @returns The subnet mask string or false if invalid
+ * @returns The subnet mask string or undefined if invalid
  *
  * @example
  * ```
@@ -483,26 +475,26 @@ declare function toIPv6Format(ip: string): Result | false;
  * toSubnetMask(24) // '255.255.255.0'
  * ```
  */
-declare function toSubnetMask(length: number): string | false;
+declare function toSubnetMask(length: number): string | undefined;
 
 /**
  * Convert subnet mask string to mask length number
  *
  * @param mask - The subnet mask string
- * @returns The mask length or false if invalid
+ * @returns The mask length or undefined if invalid
  *
  * @example
  * ```
  * toMaskLength('255.255.255.0') // 24
  * toMaskLength('255.255.256.0') // false
  * ```
-*/
-declare function toMaskLength(mask: string): number | false;
+ */
+declare function toMaskLength(mask: string): number | undefined;
 
 /**
  * Calculate the inverse mask of a subnet mask
  * @param mask - The subnet mask
- * @returns The inverse mask, or false if invalid
+ * @returns The inverse mask, or undefined if invalid
  *
  * @example
  * ```
@@ -512,7 +504,7 @@ declare function toMaskLength(mask: string): number | false;
  * toInverseMask('255.255.0.0');  // '0.0.255.255'
  * ```
  */
-declare function toInverseMask(mask: string | number): string | false;
+declare function toInverseMask(mask: string | number): string | undefined;
 
 type index$1_ipRange = ipRange;
 declare const index$1_ipRange: typeof ipRange;
@@ -526,46 +518,27 @@ declare const index$1_toInverseMask: typeof toInverseMask;
 declare const index$1_toMaskLength: typeof toMaskLength;
 declare const index$1_toSubnetMask: typeof toSubnetMask;
 declare namespace index$1 {
-  export {
-    contains$1 as contains,
-    ip2long$1 as ip2long,
-    index$1_ipRange as ipRange,
-    isCIDR$1 as isCIDR,
-    isConflict$1 as isConflict,
-    isEqual$1 as isEqual,
-    index$1_isPrivate as isPrivate,
-    index$1_isSameSubnet as isSameSubnet,
-    isValidIP$1 as isValidIP,
-    index$1_isValidMask as isValidMask,
-    long2ip$1 as long2ip,
-    parseCIDR$1 as parseCIDR,
-    index$1_parseSubnet as parseSubnet,
-    index$1_toBinHex as toBinHex,
-    index$1_toIPv6Format as toIPv6Format,
-    index$1_toInverseMask as toInverseMask,
-    index$1_toMaskLength as toMaskLength,
-    index$1_toSubnetMask as toSubnetMask,
-  };
+  export { contains$1 as contains, ip2long$1 as ip2long, index$1_ipRange as ipRange, isCIDR$1 as isCIDR, isConflict$1 as isConflict, isEqual$1 as isEqual, index$1_isPrivate as isPrivate, index$1_isSameSubnet as isSameSubnet, isValidIP$1 as isValidIP, index$1_isValidMask as isValidMask, long2ip$1 as long2ip, parseCIDR$1 as parseCIDR, index$1_parseSubnet as parseSubnet, index$1_toBinHex as toBinHex, index$1_toIPv6Format as toIPv6Format, index$1_toInverseMask as toInverseMask, index$1_toMaskLength as toMaskLength, index$1_toSubnetMask as toSubnetMask };
 }
 
 /**
  * Convert IPv6 address string to number
  *
  * @param ip - The IPv6 address string
- * @returns The converted IPv6 number or false if invalid
+ * @returns The converted IPv6 number or undefined if invalid
  *
  * @example
  * ```
  * ip2long('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8')   // 320909743562165251276054390739658815160n
  * ```
  */
-declare function ip2long(ip: string): bigint | false;
+declare function ip2long(ip: string): bigint | undefined;
 
 /**
  * Convert IPv4 number to address string
  *
  * @param ip - The IPv4 number
- * @returns The converted IPv4 address string or false if invalid
+ * @returns The converted IPv4 address string or undefined if invalid
  *
  * @example
  * ```
@@ -573,7 +546,7 @@ declare function ip2long(ip: string): bigint | false;
  * long2ip(-1) // false
  * ```
  */
-declare function long2ip(ip: bigint): string | false;
+declare function long2ip(ip: bigint): string | undefined;
 
 /**
  * Verify if the IPv6 address is within the CIDR range
@@ -662,7 +635,7 @@ interface SubNet {
  * NetworkAddress and broadcastAddress are valid when mask < 31
  *
  * @param cidr - The CIDR format address string
- * @returns The parsed address range object or false if invalid
+ * @returns The parsed address range object or undefined if invalid
  *
  * @example
  * ```
@@ -675,33 +648,33 @@ interface SubNet {
  * // }
  * ```
  */
-declare function parseCIDR(cidr: string): false | SubNet;
+declare function parseCIDR(cidr: string): SubNet | undefined;
 
 /**
  * Expands an abbreviated IPv6 address string into its full representation.
  *
  * @param ip - The IPv6 address string
- * @returns The expanded IPv6 address string or false if invalid
+ * @returns The expanded IPv6 address string or undefined if invalid
  *
  * @example
  * ```
  * expandedForm('2001:db8::1') // '2001:0db8:0000:0000:0000:0000:0000:0001'
  * ```
  */
-declare function expandedForm(ip: string): string | false;
+declare function expandedForm(ip: string): string | undefined;
 
 /**
  * Compresses an expanded IPv6 address into shortened form.
  *
  * @param ip - The IPv6 address string
- * @returns The compressed IPv6 address string or false if invalid
+ * @returns The compressed IPv6 address string or undefined if invalid
  *
  * @example
  * ```
  * compressedForm('2001:0db8:0000:0000:0000:0000:0000:0001')  // '2001:db8::1'
  * ```
  */
-declare function compressedForm(ip: string): string | false;
+declare function compressedForm(ip: string): string | undefined;
 
 declare const index_compressedForm: typeof compressedForm;
 declare const index_contains: typeof contains;
@@ -714,18 +687,7 @@ declare const index_isValidIP: typeof isValidIP;
 declare const index_long2ip: typeof long2ip;
 declare const index_parseCIDR: typeof parseCIDR;
 declare namespace index {
-  export {
-    index_compressedForm as compressedForm,
-    index_contains as contains,
-    index_expandedForm as expandedForm,
-    index_ip2long as ip2long,
-    index_isCIDR as isCIDR,
-    index_isConflict as isConflict,
-    index_isEqual as isEqual,
-    index_isValidIP as isValidIP,
-    index_long2ip as long2ip,
-    index_parseCIDR as parseCIDR,
-  };
+  export { index_compressedForm as compressedForm, index_contains as contains, index_expandedForm as expandedForm, index_ip2long as ip2long, index_isCIDR as isCIDR, index_isConflict as isConflict, index_isEqual as isEqual, index_isValidIP as isValidIP, index_long2ip as long2ip, index_parseCIDR as parseCIDR };
 }
 
 export { index$2 as IP, index$1 as IPv4, index as IPv6 };

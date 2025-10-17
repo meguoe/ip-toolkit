@@ -86,29 +86,46 @@ const ipConvertCases = [
 ];
 
 describe('long2ip', () => {
-  test.each(ipConvertCases)('判断 $long 是否等于 $ip', ({ ip, long, result }) => expect(IP.long2ip(long as any) === ip).toBe(result));
+  test.each(ipConvertCases)('判断 $long 是否等于 $ip', ({ ip, long, result }) =>
+    expect(IP.long2ip(long as any) === ip).toBe(result)
+  );
 });
 
 describe('ip2long', () => {
-  test.each(ipConvertCases)('判断 $ip 是否等于 $long', ({ ip, long, result }) => expect(IP.ip2long(ip as any) === long).toBe(result));
+  test.each(ipConvertCases)('判断 $ip 是否等于 $long', ({ ip, long, result }) =>
+    expect(IP.ip2long(ip as any) === long).toBe(result)
+  );
 });
 
 describe('contains', () => {
-  test.each(ipConvertCases)('判断 $cidr 是否等于 $result', ({ ip, contains, result }) => expect(IP.contains(contains as any, ip as any)).toBe(result));
+  test.each(ipConvertCases)(
+    '判断 $contains 是否等于 $result',
+    ({ ip, contains, result }) =>
+      expect(IP.contains(contains as any, ip as any)).toBe(result)
+  );
 });
 
 describe('isCIDR', () => {
-  test.each(ipConvertCases)('判断 $cidr 是否等于 $result', ({ cidr, result }) => expect(IP.isCIDR(cidr as any)).toBe(result));
+  test.each(ipConvertCases)('判断 $cidr 是否等于 $result', ({ cidr, result }) =>
+    expect(IP.isCIDR(cidr as any)).toBe(result)
+  );
 });
 
 describe('isValidIP', () => {
-  test.each(ipConvertCases)('判断 $ip 是否等于 $result', ({ ip, result }) => expect(IP.isValidIP(ip as any)).toBe(result));
+  test.each(ipConvertCases)('判断 $ip 是否等于 $result', ({ ip, result }) =>
+    expect(IP.isValidIP(ip as any)).toBe(result)
+  );
 });
 
 describe('isConflict', () => {
-  test.each(ipConvertCases)('判断 $cidrs 是否等于 $result', ({ cidrs, result }) => expect(IP.isConflict(cidrs as any)).toBe(result));
+  test.each(ipConvertCases)(
+    '判断 $cidrs 是否等于 $result',
+    ({ cidrs, result }) => expect(IP.isConflict(cidrs as any)).toBe(result)
+  );
 });
 
 describe('ipVersion', () => {
-  test.each(ipConvertCases)('判断 $ip 是否等于 $ver', ({ ip, ver }) => expect(IP.ipVersion(ip as string)).toBe(ver));
+  test.each(ipConvertCases)('判断 $ip 是否等于 $ver', ({ ip, ver }) =>
+    expect(IP.ipVersion(ip as string)).toBe(ver)
+  );
 });

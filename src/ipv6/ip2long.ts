@@ -1,20 +1,20 @@
 import { isValidIP, expandedForm } from './index';
 
 /**
- * Convert IPv6 address string to number 
- * 
+ * Convert IPv6 address string to number
+ *
  * @param ip - The IPv6 address string
- * @returns The converted IPv6 number or false if invalid
- * 
+ * @returns The converted IPv6 number or undefined if invalid
+ *
  * @example
  * ```
- * ip2long('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8')   // 320909743562165251276054390739658815160n 
+ * ip2long('f16c:f7ec:cfa2:e1c5:9a3c:cb08:801f:36b8')   // 320909743562165251276054390739658815160n
  * ```
  */
 
-export function ip2long(ip: string): bigint | false {
-  if (!isValidIP(ip)) return false;
-  
+export function ip2long(ip: string): bigint | undefined {
+  if (!isValidIP(ip)) return undefined;
+
   const binary = [];
   ip = expandedForm(ip) as string;
   const parts = ip.split(':');

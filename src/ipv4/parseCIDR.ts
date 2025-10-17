@@ -1,12 +1,18 @@
-import { ip2long, long2ip, isValidIP, isValidMask, toSubnetMask } from './index';
+import {
+  ip2long,
+  long2ip,
+  isValidIP,
+  isValidMask,
+  toSubnetMask,
+} from './index';
 
 interface SubNet {
   cidrMask: number;
   ipCount: number;
   usableCount: number;
   subnetMask: string;
-  firstHost: string,
-  lastHost: string,
+  firstHost: string;
+  lastHost: string;
   networkAddress: string;
   broadcastAddress: string;
 }
@@ -17,48 +23,48 @@ interface SubNet {
  * NetworkAddress and broadcastAddress are valid when mask < 31
  *
  * @param cidr - The CIDR format address string
- * @returns The parsed address range object or false if invalid
- * 
+ * @returns The parsed address range object or undefined if invalid
+ *
  * @example
  * ```
- * parseCIDR('192.168.0.1/33')    // false
+ * parseCIDR('192.168.0.1/33')    // undefined
  * parseCIDR('192.168.0.1/24')
  * // {
- * //   ipCount: 256,  
+ * //   ipCount: 256,
  * //   usableCount: 254,
- * //   cidrMask: 24, 
+ * //   cidrMask: 24,
  * //   subnetMask: '255.255.255.0',
- * //   firstHost: '192.168.0.1', 
+ * //   firstHost: '192.168.0.1',
  * //   lastHost: '192.168.0.254',
  * //   networkAddress: '192.168.0.0',
- * //   broadcastAddress: '192.168.0.255' 
+ * //   broadcastAddress: '192.168.0.255'
  * // }
- * ``` 
+ * ```
  */
 
-export function parseCIDR(cidr: string): SubNet | false {
-  if (typeof cidr !== 'string') return false;
-  
+export function parseCIDR(cidr: string): SubNet | undefined {
+  if (typeof cidr !== 'string') return undefined;
+
   const [ip, mask] = cidr.split('/');
-  if (ip === undefined || mask === undefined || mask === '') return false;
-  if (!isValidIP(ip) || !isValidMask(+mask)) return false;
-  
+  if (ip === undefined || mask === undefined || mask === '') return undefined;
+  if (!isValidIP(ip) || !isValidMask(+mask)) return undefined;
+
   const length = 32 - +mask;
   const longIP = ip2long(ip) as number;
   const ipCount = Number(0b1n << BigInt(length));
   const networkIP = +mask ? ((longIP >> length) << length) >>> 0 : 0;
-  const broadcastIP = (networkIP | ipCount - 1) >>> 0;
-  
+  const broadcastIP = (networkIP | (ipCount - 1)) >>> 0;
+
   const cidrInfo = {
     ipCount,
     cidrMask: +mask,
     usableCount: +mask < 31 ? ipCount - 2 : ipCount,
     subnetMask: toSubnetMask(+mask) as string,
-    networkAddress: +mask < 31 ? long2ip(networkIP) as string : '',
-    broadcastAddress: +mask < 31 ? long2ip(broadcastIP) as string : '',
+    networkAddress: +mask < 31 ? (long2ip(networkIP) as string) : '',
+    broadcastAddress: +mask < 31 ? (long2ip(broadcastIP) as string) : '',
     firstHost: long2ip(networkIP + (+mask < 31 ? 1 : 0)) as string,
     lastHost: long2ip(broadcastIP - (+mask < 31 ? 1 : 0)) as string,
   };
-    
+
   return cidrInfo;
 }

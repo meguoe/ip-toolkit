@@ -2,8 +2,8 @@ import { ip2long, isValidMask, long2ip, toSubnetMask } from './index';
 
 /**
  * Calculate the inverse mask of a subnet mask
- * @param mask - The subnet mask 
- * @returns The inverse mask, or false if invalid
+ * @param mask - The subnet mask
+ * @returns The inverse mask, or undefined if invalid
  *
  * @example
  * ```
@@ -14,8 +14,8 @@ import { ip2long, isValidMask, long2ip, toSubnetMask } from './index';
  * ```
  */
 
-export function toInverseMask(mask: string | number): string | false {
-  if (!isValidMask(mask)) return false;
+export function toInverseMask(mask: string | number): string | undefined {
+  if (!isValidMask(mask)) return undefined;
 
   if (typeof mask === 'number') mask = toSubnetMask(mask) as string;
   const longMask = ip2long(mask) as number;

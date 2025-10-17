@@ -8,29 +8,28 @@ interface BinHex {
 
 /**
  * Convert IPv4 address to binary and hex
- * 
+ *
  * @param ip - The IPv4 address string
- * @returns Contains binary and hexadecimal objects, false if invalid
- * 
+ * @returns Contains binary and hexadecimal objects, undefined if invalid
+ *
  * @example
  * ```
  * const results = toBinHex('192.168.0.1');
  * // results = {
  * //   hex: '0xc0a80001',
  * //   decimal: 3232235521
- * //   binary: '11000000101010000000000000001' 
+ * //   binary: '11000000101010000000000000001'
  * // }
  * ```
  */
-export function toBinHex(ip: string): BinHex | false {
-  if (!isValidIP(ip)) return false;
-  
+export function toBinHex(ip: string): BinHex | undefined {
+  if (!isValidIP(ip)) return undefined;
+
   const longIP = ip2long(ip) as number;
 
   return {
     decimal: longIP,
-    hex: `0x${ longIP.toString(16).padStart(8, '0')}`,
+    hex: `0x${longIP.toString(16).padStart(8, '0')}`,
     binary: longIP.toString(2).padStart(32, '0'),
   };
-  
 }
